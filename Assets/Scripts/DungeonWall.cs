@@ -13,6 +13,8 @@ public class DungeonWall : MonoBehaviour
     public float latOffset, longOffset;
     public int randomPos;
     public bool locked;
+    public bool isAcessibleNextRoom;
+    public int numberOfAdjacentRooms;
     public void Start()
     {
         CheckBorders();
@@ -30,7 +32,7 @@ public class DungeonWall : MonoBehaviour
                 }
                 else
                 {
-                    locked=true;
+                    locked = true;
                     dungeonCreator.UnlockDungeon();
                 }
             }
@@ -84,6 +86,26 @@ public class DungeonWall : MonoBehaviour
         {
             locked = true;
         }
+        numberOfAdjacentRooms = 0;
+        if (left)
+        {
+            numberOfAdjacentRooms++;
+        }
+        if (right)
+        {
+            numberOfAdjacentRooms++;
+        }
+
+        if (up)
+        {
+            numberOfAdjacentRooms++;
+        }
+
+        if (down)
+        {
+            numberOfAdjacentRooms++;
+        }
+
 
     }
 
@@ -170,5 +192,9 @@ public class DungeonWall : MonoBehaviour
         {
             dungeonCreator.UnlockDungeon();
         }
+    }
+    public void DestroyRoom()
+    {
+        Destroy(this.gameObject);
     }
 }
