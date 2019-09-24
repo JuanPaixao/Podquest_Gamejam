@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Door
   - Room
+  - SpawnPoint
+  - Enemy
+  - PlayerProjectile
+  - Portal
   layers:
   - Default
   - TransparentFX
