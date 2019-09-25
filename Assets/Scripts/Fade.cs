@@ -8,6 +8,9 @@ public class Fade : MonoBehaviour
     public void FinishedFade()
     {
         this.gameObject.SetActive(false);
+    }
+    public void CreateEnemies()
+    {
         gameManager.CreateEnemies();
     }
 }

@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour
     {
         initialRoomQuantity = maxEnemyOnRoom;
         maxEnemyOnRoom = initialRoomQuantity + roomNumber;
+
         for (int i = 0; i < maxEnemyOnRoom; i++)
         {
-            int monsterToCreate = Random.Range(0, 4);
+            int monsterToCreate = Random.Range(0, 3);
             Instantiate(enemiesObjects[monsterToCreate], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
         }
         enemy = FindObjectsOfType<Enemy>();
@@ -46,10 +47,17 @@ public class GameManager : MonoBehaviour
     {
         roomNumber++;
         maxEnemyOnRoom = initialRoomQuantity + roomNumber;
-        for (int i = 0; i < maxEnemyOnRoom; i++)
+        if (roomNumber % 5 == 0)
         {
-            int monsterToCreate = Random.Range(0, 4);
-            Instantiate(enemiesObjects[monsterToCreate], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
+            Instantiate(enemiesObjects[3], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
+        }
+        else
+        {
+            for (int i = 0; i < maxEnemyOnRoom; i++)
+            {
+                int monsterToCreate = Random.Range(0, 3);
+                Instantiate(enemiesObjects[monsterToCreate], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
+            }
         }
         enemy = FindObjectsOfType<Enemy>();
         foreach (Enemy monster in enemy)
