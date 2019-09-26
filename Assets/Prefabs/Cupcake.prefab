@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8901263217168463238}
   - component: {fileID: 8901263217168463233}
   - component: {fileID: 8901263217168463239}
+  - component: {fileID: 5650926557334515539}
   m_Layer: 0
   m_Name: Cupcake
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8901263217168463232}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.223, y: 0.5, z: -2.49}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 8901263217820668416}
   m_Father: {fileID: 0}
@@ -60,7 +61,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 1
-  id: 0
+  id: Cupcake
+  lookDistance: 5
+  speed: 30
+  enemyProjectile: {fileID: 375164112412780760, guid: c36637890a7c53c4aaf9c608cea14bda,
+    type: 3}
+  shootRechargeTime: 0
+  shootCooldown: 2
+  projectileSpeed: 50
+--- !u!54 &5650926557334515539
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901263217168463232}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!1 &8901263217820668428
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,13 +109,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8901263217820668428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8901263217168463238}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &8901263217820668419
 SpriteRenderer:
   m_ObjectHideFlags: 0

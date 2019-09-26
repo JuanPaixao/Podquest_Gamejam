@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - PlayerProjectile
   - Portal
+  - EnemyShoot
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
     {
         this.direction = direction;
         this.projectileSpeed = projectileSpeed;
+        
         if (direction == "right")
         {
             // this.transform.Rotate(90, 180, 90);
