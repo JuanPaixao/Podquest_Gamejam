@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     {
         this.direction = direction;
         this.projectileSpeed = projectileSpeed;
-        
+
         if (direction == "right")
         {
             // this.transform.Rotate(90, 180, 90);
@@ -40,16 +40,16 @@ public class Projectile : MonoBehaviour
         {
 
             case "right":
-                transform.Translate(new Vector3(projectileSpeed * Time.deltaTime, 0, 0));
+                transform.Translate(new Vector2(projectileSpeed * Time.deltaTime, 0));
                 break;
             case "left":
-                transform.Translate(new Vector3(-projectileSpeed * Time.deltaTime, 0, 0));
+                transform.Translate(new Vector2(-projectileSpeed * Time.deltaTime, 0));
                 break;
             case "up":
-                transform.Translate(new Vector3(0, 0, projectileSpeed * Time.deltaTime));
+                transform.Translate(new Vector2(0, projectileSpeed * Time.deltaTime));
                 break;
             case "down":
-                transform.Translate(new Vector3(0, 0, -projectileSpeed * Time.deltaTime));
+                transform.Translate(new Vector2(0, -projectileSpeed * Time.deltaTime));
                 break;
 
         }
@@ -58,7 +58,7 @@ public class Projectile : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Room"))
         {

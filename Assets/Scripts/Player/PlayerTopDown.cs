@@ -29,7 +29,7 @@ public class PlayerTopDown : MonoBehaviour
     {
         _movHor = Input.GetAxisRaw("Horizontal");
         _movVer = Input.GetAxisRaw("Vertical");
-        Vector3 movement = new Vector3(_movHor, 0, _movVer);
+        Vector2 movement = new Vector2(_movHor, _movVer);
         transform.Translate(movement * movSpeed * Time.deltaTime);
         _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
         //
@@ -80,14 +80,14 @@ public class PlayerTopDown : MonoBehaviour
     {
 
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (_gameManager.enemyQuantity <= 0)
         {
             if (other.gameObject.CompareTag("Portal"))
             {
                 var portal = other.GetComponent<Portal>();
-                
+
                 if (portal.portalSide == "left")
                 {
 
