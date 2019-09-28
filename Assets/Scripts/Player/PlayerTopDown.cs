@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerTopDown : MonoBehaviour
 {
     public float movSpeed, shootSpeed;
-    public int HP;
+    public int HP, maxHP;
     private float _movHor, _movVer;
     private Animator _animator;
     public bool isMoving;
@@ -20,6 +20,7 @@ public class PlayerTopDown : MonoBehaviour
     }
     private void Start()
     {
+        HP = maxHP;
         _animator.SetFloat("Horizontal", 1);
         _animator.SetFloat("Vertical", 0);
         movingDirection = "right";
@@ -69,7 +70,7 @@ public class PlayerTopDown : MonoBehaviour
                 _animator.SetInteger("Direction", 3);
             }
         }
-        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
             shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
@@ -106,6 +107,58 @@ public class PlayerTopDown : MonoBehaviour
                 }
                 fade.SetActive(true);
             }
+        }
+        if (other.gameObject.CompareTag("EnemyShoot"))
+        {
+            TakeDamage();
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            Enemy enemyTemp = other.GetComponent<Enemy>();
+            if (!enemyTemp.isDefeated)
+            {
+                TakeDamage();
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Enemy tempEnemy = other.GetComponent<Enemy>();
+            Debug.Log(tempEnemy.name);
+            if (tempEnemy.isDefeated)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    _gameManager.AddCalories(tempEnemy.calories);
+                    Destroy(other.gameObject);
+                    _gameManager.UpdateEnemyQuantity();
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    Recover();
+                    Destroy(other.gameObject);
+                    _gameManager.UpdateEnemyQuantity();
+                }
+            }
+        }
+    }
+
+    private void TakeDamage()
+    {
+        HP--;
+        if (HP <= 0)
+        {
+            Debug.Log("Defeated");
+        }
+    }
+    public void Recover()
+    {
+        HP += 2;
+        if (HP > maxHP)
+        {
+            HP = maxHP;
         }
     }
 }

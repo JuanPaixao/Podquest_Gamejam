@@ -11,66 +11,78 @@ public class Enemy : MonoBehaviour
     public GameObject enemyProjectile;
     public float shootRechargeTime, shootCooldown, projectileSpeed;
     private float _angle;
+    public int calories;
+    public bool isDefeated, startMoving;
+    public float delayOffset;
+
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
         _player = FindObjectOfType<PlayerTopDown>().GetComponent<Transform>();
         _rb = GetComponent<Rigidbody2D>();
         shootRechargeTime = shootCooldown;
+        Invoke("StartMoving", delayOffset);
     }
 
     private void Update()
     {
-        float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
-
-        shootRechargeTime += Time.deltaTime;
-        _angle = Mathf.Atan2(_player.position.y, _player.position.x) * Mathf.Rad2Deg;
-        LookPosition();
-        if (distanceToPlayer <= lookDistance && distanceToPlayer > 0.5f)
+        if (!isDefeated)
         {
-
-
-            switch (id)
+            if (startMoving)
             {
-
-                case "Fish":
-
-                    //   Vector3 direction = _player.position - this.transform.position;
-                    // this.transform.Translate(direction * speed * Time.deltaTime);
-                    if (shootRechargeTime >= shootCooldown)
+                float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
+                shootRechargeTime += Time.deltaTime;
+                _angle = Mathf.Atan2(_player.position.y, _player.position.x) * Mathf.Rad2Deg;
+                LookPosition();
+                if (distanceToPlayer <= lookDistance && distanceToPlayer > 0.5f)
+                {
+                    switch (id)
                     {
-                        Shoot();
+
+                        case "Fish":
+
+                            //   Vector3 direction = _player.position - this.transform.position;
+                            // this.transform.Translate(direction * speed * Time.deltaTime);
+                            if (shootRechargeTime >= shootCooldown)
+                            {
+                                Shoot();
+                            }
+                            break;
+
+                        case "Cupcake":
+
+                            Vector2 directionFollow = new Vector2(this._player.position.x, this._player.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+                            _rb.velocity = directionFollow * speed * Time.deltaTime;
+                            if (shootRechargeTime >= shootCooldown)
+                            {
+                                Shoot();
+                            }
+
+                            break;
+
+                        case "Turtle":
+
+                            Vector2 directionRetreat = new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(this._player.position.x, this._player.position.y);
+                            _rb.velocity = directionRetreat * speed * Time.deltaTime;
+                            if (shootRechargeTime >= shootCooldown)
+                            {
+                                Shoot();
+
+                            }
+                            break;
                     }
-                    break;
-
-                case "Cupcake":
-
-                    Vector2 directionFollow = new Vector2(this._player.position.x, this._player.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
-                    _rb.velocity = directionFollow * speed * Time.deltaTime;
-                    if (shootRechargeTime >= shootCooldown)
-                    {
-                        Shoot();
-                    }
-
-                    break;
-
-                case "Turtle":
-
-                    Vector2 directionRetreat = new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(this._player.position.x, this._player.position.y);
-                    _rb.velocity = directionRetreat * speed * Time.deltaTime;
-                    if (shootRechargeTime >= shootCooldown)
-                    {
-                        Shoot();
-
-                    }
-                    break;
+                }
+                else
+                {
+                    _rb.velocity = Vector3.zero;
+                }
             }
         }
         else
         {
             _rb.velocity = Vector3.zero;
+            _rb.isKinematic = true;
         }
-
     }
     public void Shoot()
     {
@@ -85,8 +97,9 @@ public class Enemy : MonoBehaviour
         HP--;
         if (HP <= 0)
         {
-            _gameManager.UpdateEnemyQuantity();
-            Destroy(this.gameObject);
+            // _gameManager.UpdateEnemyQuantity();
+            // Destroy(this.gameObject);
+            isDefeated = true;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -102,5 +115,9 @@ public class Enemy : MonoBehaviour
         Vector3 lookPosition = _player.transform.position;
         Vector2 direction = new Vector2(lookPosition.x - transform.position.x, lookPosition.y - transform.position.y).normalized;
         transform.right = -direction;
+    }
+    public void StartMoving()
+    {
+        startMoving = true;
     }
 }

@@ -6,24 +6,14 @@ public class GameManager : MonoBehaviour
     private Enemy[] enemy;
     public int enemyQuantity, maxEnemyOnRoom, initialRoomQuantity, roomNumber;
     public GameObject[] portals, enemiesObjects;
-    public float xMin, zMin, xMax, zMax;
+    public float xMin, yMin, xMax, yMax;
+    public int caloriesQuantity;
+    public int caloriesToGet;
 
     private void Start()
     {
         initialRoomQuantity = maxEnemyOnRoom;
         maxEnemyOnRoom = initialRoomQuantity + roomNumber;
-
-        for (int i = 0; i < maxEnemyOnRoom; i++)
-        {
-            int monsterToCreate = Random.Range(0, 3);
-            Instantiate(enemiesObjects[monsterToCreate], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
-        }
-        enemy = FindObjectsOfType<Enemy>();
-        foreach (Enemy monster in enemy)
-        {
-            enemyQuantity++;
-        }
-
     }
     public void DeactivePortals()
     {
@@ -47,16 +37,17 @@ public class GameManager : MonoBehaviour
     {
         roomNumber++;
         maxEnemyOnRoom = initialRoomQuantity + roomNumber;
+
         if (roomNumber % 5 == 0)
         {
-            Instantiate(enemiesObjects[3], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
+            Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
         }
         else
         {
             for (int i = 0; i < maxEnemyOnRoom; i++)
             {
                 int monsterToCreate = Random.Range(0, 3);
-                Instantiate(enemiesObjects[monsterToCreate], new Vector3(Random.Range(xMin, xMax), 0.5f, (Random.Range(zMin, zMax))), Quaternion.Euler(90, 0, 0));
+                Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
             }
         }
         enemy = FindObjectsOfType<Enemy>();
@@ -64,5 +55,9 @@ public class GameManager : MonoBehaviour
         {
             enemyQuantity++;
         }
+    }
+    public void AddCalories(int calories)
+    {
+        this.caloriesQuantity += calories;
     }
 }
