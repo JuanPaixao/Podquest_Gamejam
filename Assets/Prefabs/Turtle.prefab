@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4733247745693831531}
   - component: {fileID: 4733247745693831528}
+  - component: {fileID: 2020497156447060520}
+  - component: {fileID: 8190583720792415758}
   m_Layer: 0
   m_Name: inimigo3
   m_TagString: Untagged
@@ -25,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4733247745693831527}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4733247746065037037}
@@ -48,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,6 +82,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2020497156447060520
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733247745693831527}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 861246d07db8bcc46998eca39f2ad694, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8190583720792415758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733247745693831527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a591d98fde4d0914cb8039ef6374a87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4733247746065037035
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,20 +160,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef6376fcccf3c746bf9e096dffa0308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1
+  HP: 3
   id: Turtle
-  lookDistance: 5
-  speed: 30
+  lookDistance: 7
+  speed: 15
   offset: 0
-  enemyProjectile: {fileID: 375164112412780760, guid: c36637890a7c53c4aaf9c608cea14bda,
+  enemyProjectile: {fileID: 3918697890419756925, guid: 2b02fecb7ad9a0a4e8886ee7de1d350c,
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 2
-  projectileSpeed: 50
+  projectileSpeed: 60
   calories: 150
   isDefeated: 0
   startMoving: 0
   delayOffset: 1
+  _animator: {fileID: 2020497156447060520}
 --- !u!70 &5110361202920405844
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -154,8 +188,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.015456498, y: 0.10046762}
-  m_Size: {x: 0.8400438, y: 0.8400438}
+  m_Offset: {x: -0.015456498, y: 0.04929489}
+  m_Size: {x: 0.8400438, y: 0.94238925}
   m_Direction: 0
 --- !u!50 &6207861222984410271
 Rigidbody2D:
@@ -191,16 +225,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021592677, y: 0.032389104}
+  m_Offset: {x: 0.008799493, y: 0.064372}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4750386, y: 1.4246562}
+  m_Size: {x: 1.2703477, y: 1.2583449}
   m_EdgeRadius: 0

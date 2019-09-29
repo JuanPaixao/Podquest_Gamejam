@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2230265174384684586}
   - component: {fileID: 2230265174384684585}
+  - component: {fileID: 5648186465080011764}
+  - component: {fileID: 2158881251030412840}
   m_Layer: 0
   m_Name: inimigo3
   m_TagString: Untagged
@@ -48,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -69,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ddc03e8efde2c234da4a2f85ddccf622, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a5b872294bf975347ae598625dbb6d94, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -80,6 +82,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5648186465080011764
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230265174384684582}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 360e49fda4b8fe04390cf67097890f01, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2158881251030412840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230265174384684582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a591d98fde4d0914cb8039ef6374a87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2230265175892527530
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,18 +162,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   id: Fish
-  lookDistance: 5
+  lookDistance: 9
   speed: 0
   offset: 0
-  enemyProjectile: {fileID: 375164112412780760, guid: c36637890a7c53c4aaf9c608cea14bda,
+  enemyProjectile: {fileID: 8809347717117055355, guid: f167e0c6b41c63a41a7e0deb1240ef4a,
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 2
-  projectileSpeed: 50
+  projectileSpeed: 90
   calories: 100
   isDefeated: 0
   startMoving: 0
   delayOffset: 1
+  _animator: {fileID: 5648186465080011764}
 --- !u!70 &6366262402935431537
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,7 +225,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.032388985, y: 0.039586604}
+  m_Offset: {x: -0.02518034, y: 0.052379847}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -202,5 +236,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7701384, y: 1.7413483}
+  m_Size: {x: 1.3479633, y: 1.4343114}
   m_EdgeRadius: 0

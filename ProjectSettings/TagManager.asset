@@ -11,6 +11,7 @@ TagManager:
   - PlayerProjectile
   - Portal
   - EnemyShoot
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Wall
+    uniqueID: 349181711
     locked: 0

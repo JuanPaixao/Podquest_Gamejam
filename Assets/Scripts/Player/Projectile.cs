@@ -6,9 +6,12 @@ public class Projectile : MonoBehaviour
 {
     public string direction;
     public float projectileSpeed;
+    public SpriteRenderer spriteRenderer;
+    public Transform tempTransform;
 
     private void Start()
     {
+        this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Invoke("Destroy", 4);
         this.transform.Rotate(0, 0, 0);
     }
@@ -19,19 +22,19 @@ public class Projectile : MonoBehaviour
 
         if (direction == "right")
         {
-            // this.transform.Rotate(90, 180, 90);
+            this.spriteRenderer.flipX = false;
         }
         if (direction == "left")
         {
-            //   this.transform.Rotate(90, 180, 270);
+            this.spriteRenderer.flipX = true;
         }
         if (direction == "up")
         {
-            //   this.transform.Rotate(90, 180, 180);
+            tempTransform.eulerAngles = new Vector3(0, 0, 90);
         }
         if (direction == "down")
         {
-            //  this.transform.Rotate(90, 180, 0);
+            tempTransform.eulerAngles = new Vector3(0, 0, 270);
         }
     }
     private void Update()
@@ -60,9 +63,10 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Room"))
+        if (other.gameObject.CompareTag("Wall"))
         {
-            Destroy();
+            Destroy(this.gameObject);
         }
+        
     }
 }

@@ -7,16 +7,19 @@ public class PlayerTopDown : MonoBehaviour
     public float movSpeed, shootSpeed;
     public int HP, maxHP;
     private float _movHor, _movVer;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
     public bool isMoving;
     public string movingDirection;
     public GameObject projectile, fade;
     private GameManager _gameManager;
+    private UIManager _uiManager;
+    public bool isDead;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
-        _animator = GetComponentInChildren<Animator>();
         _gameManager = FindObjectOfType<GameManager>();
+        _uiManager = FindObjectOfType<UIManager>();
     }
     private void Start()
     {
@@ -33,6 +36,23 @@ public class PlayerTopDown : MonoBehaviour
         Vector2 movement = new Vector2(_movHor, _movVer);
         transform.Translate(movement * movSpeed * Time.deltaTime);
         _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
+
+        if (this.transform.position.x <= -12.79f)
+        {
+            this.transform.position = new Vector2(-12.79f, this.transform.position.y);
+        }
+        if (this.transform.position.x >= 9.76)
+        {
+            this.transform.position = new Vector2(9.76f, this.transform.position.y);
+        }
+        if (this.transform.position.y >= 6.89f)
+        {
+            this.transform.position = new Vector2(this.transform.position.x, 6.89f);
+        }
+        if (this.transform.position.y <= -5.55f)
+        {
+            this.transform.position = new Vector2(this.transform.position.x, -5.55f);
+        }
         //
         if (movement.magnitude != 0)
         {
@@ -132,15 +152,16 @@ public class PlayerTopDown : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     _gameManager.AddCalories(tempEnemy.calories);
+                    _animator.SetTrigger("Catch");
                     Destroy(other.gameObject);
                     _gameManager.UpdateEnemyQuantity();
                 }
-                else if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    Recover();
-                    Destroy(other.gameObject);
-                    _gameManager.UpdateEnemyQuantity();
-                }
+                //  else if (Input.GetKeyDown(KeyCode.LeftControl))
+                //  {
+                //    Recover();
+                //      Destroy(other.gameObject);
+                //      _gameManager.UpdateEnemyQuantity();
+                //  }
             }
         }
     }
@@ -148,10 +169,21 @@ public class PlayerTopDown : MonoBehaviour
     private void TakeDamage()
     {
         HP--;
+        _uiManager.SetHP(HP);
         if (HP <= 0)
         {
-            Debug.Log("Defeated");
+            isDead = true;
+            Invoke("Defeated", 2f);
         }
+        if (HP > 0)
+        {
+            _spriteRenderer.enabled = false;
+             Invoke("Restore", 0.15f);
+        }
+    }
+    public void Restore()
+    {
+        _spriteRenderer.enabled = true;
     }
     public void Recover()
     {
@@ -160,5 +192,9 @@ public class PlayerTopDown : MonoBehaviour
         {
             HP = maxHP;
         }
+    }
+    public void Defeated()
+    {
+        _gameManager.LoadScene("Dungeon");
     }
 }

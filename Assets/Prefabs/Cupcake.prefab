@@ -47,16 +47,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef6376fcccf3c746bf9e096dffa0308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1
+  HP: 2
   id: Cupcake
-  lookDistance: 5
+  lookDistance: 8
   speed: 30
   offset: 0
-  enemyProjectile: {fileID: 375164112412780760, guid: c36637890a7c53c4aaf9c608cea14bda,
+  enemyProjectile: {fileID: 4396317498611109781, guid: 29cce1b256a44f14c988671045aa1205,
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 2
-  projectileSpeed: 50
+  projectileSpeed: 70
   calories: 250
   isDefeated: 0
   startMoving: 0
@@ -111,7 +111,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0071974993, y: -0.014395118}
+  m_Offset: {x: -0.032783836, y: 0.004794717}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -122,7 +122,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7053607, y: 1.6621749}
+  m_Size: {x: 1.4750836, y: 1.4191043}
   m_EdgeRadius: 0
 --- !u!1 &8901263217820668428
 GameObject:
@@ -134,6 +134,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8901263217820668416}
   - component: {fileID: 8901263217820668419}
+  - component: {fileID: 7457847104907939150}
+  - component: {fileID: 6405070580165102358}
   m_Layer: 0
   m_Name: inimigo3
   m_TagString: Untagged
@@ -149,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8901263217820668428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.11, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8901263217168463238}
@@ -172,7 +174,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 912aad2caae1ff145aaf00c75b60972d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 989af1435c96b5b4cbd08a544f52f24a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,3 +206,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7457847104907939150
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901263217820668428}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cafbf92148b151b419bd3f3f80eefed3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6405070580165102358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901263217820668428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a591d98fde4d0914cb8039ef6374a87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

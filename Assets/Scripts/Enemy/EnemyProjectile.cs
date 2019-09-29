@@ -16,6 +16,7 @@ public class EnemyProjectile : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         Invoke("Destroy", 10);
         _directionFollow = playerPosition.position - this.transform.position;
+        transform.right = _directionFollow;
     }
     private void Update()
     {
@@ -30,5 +31,12 @@ public class EnemyProjectile : MonoBehaviour
     private void Destroy()
     {
         Destroy(this.gameObject);
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
