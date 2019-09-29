@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef6376fcccf3c746bf9e096dffa0308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 2
+  HP: 1
   id: Cupcake
   lookDistance: 8
   speed: 30

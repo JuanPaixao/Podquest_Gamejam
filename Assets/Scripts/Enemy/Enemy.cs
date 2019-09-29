@@ -32,6 +32,10 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (_gameManager.finished)
+        {
+            this.gameObject.SetActive(false);
+        }
         if (!isDefeated)
         {
             if (startMoving)
@@ -120,6 +124,19 @@ public class Enemy : MonoBehaviour
             // _gameManager.UpdateEnemyQuantity();
             // Destroy(this.gameObject);
             isDefeated = true;
+
+            if (this.id == "Boss")
+            {
+                _gameManager.PlaySFX("bossDefeated");
+            }
+            if (this.id == "Cupcake")
+            {
+                _gameManager.PlaySFX("cakeDefeated");
+            }
+            if (this.id == "Turtle")
+            {
+                _gameManager.PlaySFX("turtleDefeated");
+            }
         }
         if (!isDefeated)
         {
@@ -128,10 +145,14 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerProjectile"))
+        if (!isDefeated)
         {
-            Destroy(other.gameObject);
-            EnemyTakeDamage();
+            if (other.CompareTag("PlayerProjectile"))
+            {
+
+                Destroy(other.gameObject);
+                EnemyTakeDamage();
+            }
         }
     }
     public void LookPosition()
@@ -151,6 +172,23 @@ public class Enemy : MonoBehaviour
     {
         _spriteRenderer.enabled = false;
         Invoke("Restore", 0.15f);
+
+        if (this.id == "Boss")
+        {
+            _gameManager.PlaySFX("bossHitted");
+        }
+        if (this.id == "Cupcake")
+        {
+            _gameManager.PlaySFX("cakeHitted");
+        }
+        if (this.id == "Fish")
+        {
+            _gameManager.PlaySFX("fishDefeated");
+        }
+        if (this.id == "Turtle")
+        {
+            _gameManager.PlaySFX("turtleHitted");
+        }
     }
     public void Restore()
     {

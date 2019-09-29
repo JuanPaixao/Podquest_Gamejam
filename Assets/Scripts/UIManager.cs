@@ -13,12 +13,12 @@ public class UIManager : MonoBehaviour
     public float timeSpeed;
     public TextMeshProUGUI text;
     public Slider slider;
+    public GameManager gameManager;
 
     private void Start()
     {
         startPos = new Vector3(minPoint.position.x, minPoint.position.y, minPoint.position.z);
         finishPos = new Vector3(maxPoint.position.x, maxPoint.position.y, maxPoint.position.z);
-
     }
     private void Update()
     {
@@ -26,6 +26,10 @@ public class UIManager : MonoBehaviour
         {
             dayTime += Time.deltaTime * timeSpeed;
             pointerDay.transform.position = Vector3.Lerp(startPos, finishPos, dayTime);
+        }
+        else
+        {
+            gameManager.FinishGame();
         }
     }
     public void SetScore(int text)

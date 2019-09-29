@@ -15,6 +15,7 @@ public class PlayerTopDown : MonoBehaviour
     private UIManager _uiManager;
     public bool isDead;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    public float cooldownToShoot, rechargeTime;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerTopDown : MonoBehaviour
     }
     private void Start()
     {
+        cooldownToShoot = rechargeTime;
         HP = maxHP;
         _animator.SetFloat("Horizontal", 1);
         _animator.SetFloat("Vertical", 0);
@@ -31,76 +33,89 @@ public class PlayerTopDown : MonoBehaviour
     }
     private void Update()
     {
-        _movHor = Input.GetAxisRaw("Horizontal");
-        _movVer = Input.GetAxisRaw("Vertical");
-        Vector2 movement = new Vector2(_movHor, _movVer);
-        transform.Translate(movement * movSpeed * Time.deltaTime);
-        _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
+        if (!_gameManager.finished)
+        {
+            if (!isDead)
+            {
+                _movHor = Input.GetAxisRaw("Horizontal");
+                _movVer = Input.GetAxisRaw("Vertical");
+                Vector2 movement = new Vector2(_movHor, _movVer);
+                transform.Translate(movement * movSpeed * Time.deltaTime);
+                _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
+                cooldownToShoot -= Time.deltaTime;
 
-        if (this.transform.position.x <= -12.79f)
-        {
-            this.transform.position = new Vector2(-12.79f, this.transform.position.y);
-        }
-        if (this.transform.position.x >= 9.76)
-        {
-            this.transform.position = new Vector2(9.76f, this.transform.position.y);
-        }
-        if (this.transform.position.y >= 6.89f)
-        {
-            this.transform.position = new Vector2(this.transform.position.x, 6.89f);
-        }
-        if (this.transform.position.y <= -5.55f)
-        {
-            this.transform.position = new Vector2(this.transform.position.x, -5.55f);
-        }
-        //
-        if (movement.magnitude != 0)
-        {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
-        }
-        //
-        if (isMoving)
-        {
-            _animator.SetFloat("Horizontal", _movHor);
-            _animator.SetFloat("Vertical", _movVer);
+                if (this.transform.position.x <= -12.79f)
+                {
+                    this.transform.position = new Vector2(-12.79f, this.transform.position.y);
+                }
+                if (this.transform.position.x >= 9.76)
+                {
+                    this.transform.position = new Vector2(9.76f, this.transform.position.y);
+                }
+                if (this.transform.position.y >= 6.89f)
+                {
+                    this.transform.position = new Vector2(this.transform.position.x, 6.89f);
+                }
+                if (this.transform.position.y <= -5.55f)
+                {
+                    this.transform.position = new Vector2(this.transform.position.x, -5.55f);
+                }
+                //
+                if (movement.magnitude != 0)
+                {
+                    isMoving = true;
+                }
+                else
+                {
+                    isMoving = false;
+                }
+                //
+                if (isMoving)
+                {
+                    _animator.SetFloat("Horizontal", _movHor);
+                    _animator.SetFloat("Vertical", _movVer);
 
 
-            if (_movHor > 0)
-            {
-                movingDirection = "right";
-                _animator.SetInteger("Direction", 0);
+                    if (_movHor > 0)
+                    {
+                        movingDirection = "right";
+                        _animator.SetInteger("Direction", 0);
+                    }
+                    else if (_movHor < 0)
+                    {
+                        movingDirection = "left";
+                        _animator.SetInteger("Direction", 2);
+                    }
+                    else if (_movVer > 0)
+                    {
+                        movingDirection = "up";
+                        _animator.SetInteger("Direction", 1);
+                    }
+                    else if (_movVer < 0)
+                    {
+                        movingDirection = "down";
+                        _animator.SetInteger("Direction", 3);
+                    }
+                }
+                if (cooldownToShoot <= 0)
+                {
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
+                        shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
+                        _animator.SetTrigger("Shoot");
+                        _gameManager.PlaySFX("playerShoot");
+                        cooldownToShoot = rechargeTime;
+                    }
+                }
             }
-            else if (_movHor < 0)
+            else if (isDead)
             {
-                movingDirection = "left";
-                _animator.SetInteger("Direction", 2);
+                _animator.SetTrigger("Dead");
             }
-            else if (_movVer > 0)
-            {
-                movingDirection = "up";
-                _animator.SetInteger("Direction", 1);
-            }
-            else if (_movVer < 0)
-            {
-                movingDirection = "down";
-                _animator.SetInteger("Direction", 3);
-            }
-        }
-        if (Input.GetButtonDown("Fire1"))
-        {
-            GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
-            shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
-            _animator.SetTrigger("Shoot");
         }
     }
-    public void FinishShoot()
-    {
 
-    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (_gameManager.enemyQuantity <= 0)
@@ -126,6 +141,7 @@ public class PlayerTopDown : MonoBehaviour
 
                 }
                 fade.SetActive(true);
+                _gameManager.PlaySFX("doorSound");
             }
         }
         if (other.gameObject.CompareTag("EnemyShoot"))
@@ -149,12 +165,13 @@ public class PlayerTopDown : MonoBehaviour
             Debug.Log(tempEnemy.name);
             if (tempEnemy.isDefeated)
             {
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space))
                 {
                     _gameManager.AddCalories(tempEnemy.calories);
                     _animator.SetTrigger("Catch");
                     Destroy(other.gameObject);
                     _gameManager.UpdateEnemyQuantity();
+                    _gameManager.PlaySFX("playerGrab");
                 }
                 //  else if (Input.GetKeyDown(KeyCode.LeftControl))
                 //  {
@@ -173,12 +190,14 @@ public class PlayerTopDown : MonoBehaviour
         if (HP <= 0)
         {
             isDead = true;
-            Invoke("Defeated", 2f);
+            _gameManager.PlaySFX("playerDefeated");
+            Invoke("Defeated", 3f);
         }
         if (HP > 0)
         {
             _spriteRenderer.enabled = false;
-             Invoke("Restore", 0.15f);
+            _gameManager.PlaySFX("playerHitted");
+            Invoke("Restore", 0.15f);
         }
     }
     public void Restore()
