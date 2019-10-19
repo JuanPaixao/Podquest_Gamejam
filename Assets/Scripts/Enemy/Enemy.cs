@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
         Invoke("StartMoving", delayOffset);
         _blinkAnimator = GetComponent<Animator>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
         if (this.id == "Boss")
         {
             if (_gameManager.gameMode == "Co-op" && _gameManager.deathCountPlayer == 0)
