@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public AudioClip finishMusic;
     public AudioClip cakeHitted, turtleHitted, bossHitted, playerHitted, cakeShoot, fishShoot, turtleShoot, bossShoot, playerShoot,
     cakeDefeated, fishDefeated, turtleDefeated, bossDefeated, playerDefeated, playerGrab, doorSound;
+    public string gameMode;
+    public int deathCountPlayer;
     private void Start()
     {
         _uIManager = FindObjectOfType<UIManager>();
@@ -101,7 +103,14 @@ public class GameManager : MonoBehaviour
         randomizeTile.RandomizeGround();
         enemyQuantity = 0;
         roomNumber++;
-        maxEnemyOnRoom = initialRoomQuantity + roomNumber;
+        if (gameMode == "Single" || deathCountPlayer > 0)
+        {
+            maxEnemyOnRoom = initialRoomQuantity + roomNumber;
+        }
+        else
+        {
+            maxEnemyOnRoom = initialRoomQuantity + roomNumber * 2;
+        }
         if (roomNumber % 5 == 0)
         {
             Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);

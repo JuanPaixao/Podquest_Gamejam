@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
@@ -20,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
     }
     private void Update()
     {
-        _rb.velocity = _directionFollow * projectileSpeed * Time.deltaTime;
+        _rb.velocity = _directionFollow.normalized * projectileSpeed * Time.deltaTime;
     }
     public void SetShootDirection(Vector2 direction, float projectileSpeed, Transform playerPosition)
     {

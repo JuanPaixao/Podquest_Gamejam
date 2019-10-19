@@ -47,16 +47,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef6376fcccf3c746bf9e096dffa0308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 15
+  HP: 25
   id: Boss
+  _player: {fileID: 0}
+  _player2: {fileID: 0}
+  _target: {fileID: 0}
   lookDistance: 30
   speed: 7.5
   offset: 0
   enemyProjectile: {fileID: 5081831577765507250, guid: fb08d06b9b26dff49b929a6251a7a616,
     type: 3}
   shootRechargeTime: 0
-  shootCooldown: 4
-  projectileSpeed: 68
+  shootCooldown: 3
+  projectileSpeed: 390
   calories: 1000
   isDefeated: 0
   startMoving: 0

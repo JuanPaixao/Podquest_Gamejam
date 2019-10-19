@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +10,9 @@ public class UIManager : MonoBehaviour
     public GameObject pointerDay;
     public float timeSpeed;
     public TextMeshProUGUI text;
-    public Slider slider;
+    public Slider sliderP1, sliderP2;
     public GameManager gameManager;
+    public GameObject[] deathPanel;
 
     private void Start()
     {
@@ -36,8 +35,26 @@ public class UIManager : MonoBehaviour
     {
         this.text.text = text.ToString() + " kcal";
     }
-    public void SetHP(int hp)
+    public void SetHP(int hp, int player)
     {
-        slider.value = hp;
+        if (player == 1)
+        {
+            sliderP1.value = hp;
+        }
+        if (player == 2)
+        {
+            sliderP2.value = hp;
+        }
+    }
+    public void DeathPanel(int player)
+    {
+        if (player == 1)
+        {
+            deathPanel[0].SetActive(true);
+        }
+        if (player == 2)
+        {
+            deathPanel[1].SetActive(true);
+        }
     }
 }

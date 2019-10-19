@@ -162,6 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 2
   id: Turtle
+  _player: {fileID: 0}
+  _player2: {fileID: 0}
+  _target: {fileID: 0}
   lookDistance: 7
   speed: 15
   offset: 0
@@ -169,7 +172,7 @@ MonoBehaviour:
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 2
-  projectileSpeed: 60
+  projectileSpeed: 265
   calories: 150
   isDefeated: 0
   startMoving: 0

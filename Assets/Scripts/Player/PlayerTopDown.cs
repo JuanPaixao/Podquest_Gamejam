@@ -6,7 +6,7 @@ public class PlayerTopDown : MonoBehaviour
 {
     public float movSpeed, shootSpeed;
     public int HP, maxHP;
-    private float _movHor, _movVer;
+    [SerializeField] private float _movHor, _movVer, _movHorRot, _movVerRot;
     [SerializeField] private Animator _animator;
     public bool isMoving;
     public string movingDirection;
@@ -16,6 +16,8 @@ public class PlayerTopDown : MonoBehaviour
     public bool isDead;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     public float cooldownToShoot, rechargeTime;
+    public string sceneToLoad;
+    public int playerNumber;
 
     private void Awake()
     {
@@ -26,10 +28,10 @@ public class PlayerTopDown : MonoBehaviour
     {
         cooldownToShoot = rechargeTime;
         HP = maxHP;
-        _animator.SetFloat("Horizontal", 1);
-        _animator.SetFloat("Vertical", 0);
-        movingDirection = "right";
-        _animator.SetInteger("Direction", 0);
+        _animator.SetFloat("Horizontal", 0);
+        _animator.SetFloat("Vertical", 1);
+        movingDirection = "up";
+        _animator.SetInteger("Direction", 1);
     }
     private void Update()
     {
@@ -37,8 +39,23 @@ public class PlayerTopDown : MonoBehaviour
         {
             if (!isDead)
             {
-                _movHor = Input.GetAxisRaw("Horizontal");
-                _movVer = Input.GetAxisRaw("Vertical");
+                if (playerNumber == 1)
+                {
+                    _movHor = Input.GetAxisRaw("HorizontalKeyboard");
+                    _movVer = Input.GetAxisRaw("VerticalKeyboard");
+
+                    _movHorRot = Input.GetAxisRaw("HorizontalRot");
+                    _movVerRot = Input.GetAxisRaw("VerticalRot");
+                }
+                if (playerNumber == 2)
+                {
+                    _movHor = Input.GetAxis("HorizontalJoystick");
+                    _movVer = Input.GetAxis("VerticalJoystick");
+
+                    _movHorRot = Input.GetAxis("RightRotHorJoystick");
+                    _movVerRot = Input.GetAxis("RightRoVertJoystick");
+                }
+
                 Vector2 movement = new Vector2(_movHor, _movVer);
                 transform.Translate(movement * movSpeed * Time.deltaTime);
                 _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
@@ -70,42 +87,74 @@ public class PlayerTopDown : MonoBehaviour
                     isMoving = false;
                 }
                 //
-                if (isMoving)
+
+
+                if (_movHorRot > 0.9)
                 {
-                    _animator.SetFloat("Horizontal", _movHor);
-                    _animator.SetFloat("Vertical", _movVer);
-
-
-                    if (_movHor > 0)
-                    {
-                        movingDirection = "right";
-                        _animator.SetInteger("Direction", 0);
-                    }
-                    else if (_movHor < 0)
-                    {
-                        movingDirection = "left";
-                        _animator.SetInteger("Direction", 2);
-                    }
-                    else if (_movVer > 0)
-                    {
-                        movingDirection = "up";
-                        _animator.SetInteger("Direction", 1);
-                    }
-                    else if (_movVer < 0)
-                    {
-                        movingDirection = "down";
-                        _animator.SetInteger("Direction", 3);
-                    }
+                    movingDirection = "right";
+                    _animator.SetInteger("Direction", 0);
                 }
+                if (_movHorRot < -0.9)
+                {
+                    movingDirection = "left";
+                    _animator.SetInteger("Direction", 2);
+                }
+                if (_movVerRot > 0.9)
+                {
+                    movingDirection = "up";
+                    _animator.SetInteger("Direction", 1);
+                }
+                if (_movVerRot < -0.9)
+                {
+                    movingDirection = "down";
+                    _animator.SetInteger("Direction", 3);
+                }
+
+
+                if (movingDirection == "right")
+                {
+                    _animator.SetFloat("Horizontal", 1);
+                    _animator.SetFloat("Vertical", 0);
+                }
+                if (movingDirection == "left")
+                {
+                    _animator.SetFloat("Horizontal", -1);
+                    _animator.SetFloat("Vertical", 0);
+                }
+                if (movingDirection == "up")
+                {
+                    _animator.SetFloat("Horizontal", 0);
+                    _animator.SetFloat("Vertical", 1);
+                }
+                if (movingDirection == "down")
+                {
+                    _animator.SetFloat("Horizontal", 0);
+                    _animator.SetFloat("Vertical", -1);
+                }
+
                 if (cooldownToShoot <= 0)
                 {
-                    if (Input.GetButtonDown("Fire1"))
+                    if (playerNumber == 1)
                     {
-                        GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
-                        shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
-                        _animator.SetTrigger("Shoot");
-                        _gameManager.PlaySFX("playerShoot");
-                        cooldownToShoot = rechargeTime;
+                        if (Input.GetButton("Jump"))
+                        {
+                            GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
+                            shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
+                            _animator.SetTrigger("Shoot");
+                            _gameManager.PlaySFX("playerShoot");
+                            cooldownToShoot = rechargeTime;
+                        }
+                    }
+                    if (playerNumber == 2)
+                    {
+                        if (Input.GetAxisRaw("JoystickShoot_L") != 0)
+                        {
+                            GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
+                            shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
+                            _animator.SetTrigger("Shoot");
+                            _gameManager.PlaySFX("playerShoot");
+                            cooldownToShoot = rechargeTime;
+                        }
                     }
                 }
             }
@@ -165,13 +214,28 @@ public class PlayerTopDown : MonoBehaviour
             Debug.Log(tempEnemy.name);
             if (tempEnemy.isDefeated)
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (playerNumber == 1)
                 {
-                    _gameManager.AddCalories(tempEnemy.calories);
-                    _animator.SetTrigger("Catch");
-                    Destroy(other.gameObject);
-                    _gameManager.UpdateEnemyQuantity();
-                    _gameManager.PlaySFX("playerGrab");
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        _gameManager.AddCalories(tempEnemy.calories);
+                        _animator.SetTrigger("Catch");
+                        Destroy(other.gameObject);
+                        _gameManager.UpdateEnemyQuantity();
+                        _gameManager.PlaySFX("playerGrab");
+                    }
+                }
+
+                if (playerNumber == 2)
+                {
+                    if (Input.GetButton("Xbox_A"))
+                    {
+                        _gameManager.AddCalories(tempEnemy.calories);
+                        _animator.SetTrigger("Catch");
+                        Destroy(other.gameObject);
+                        _gameManager.UpdateEnemyQuantity();
+                        _gameManager.PlaySFX("playerGrab");
+                    }
                 }
                 //  else if (Input.GetKeyDown(KeyCode.LeftControl))
                 //  {
@@ -186,12 +250,34 @@ public class PlayerTopDown : MonoBehaviour
     private void TakeDamage()
     {
         HP--;
-        _uiManager.SetHP(HP);
+        if (playerNumber == 1)
+        {
+            _uiManager.SetHP(HP, 1);
+        }
+        if (playerNumber == 2)
+        {
+            _uiManager.SetHP(HP, 2);
+        }
         if (HP <= 0)
         {
-            isDead = true;
-            _gameManager.PlaySFX("playerDefeated");
-            Invoke("Defeated", 3f);
+            if (_gameManager.gameMode == "Single")
+            {
+                isDead = true;
+                _gameManager.PlaySFX("playerDefeated");
+                Invoke("Defeated", 3f);
+            }
+            else if (_gameManager.gameMode == "Co-op")
+            {
+                isDead = true;
+                _gameManager.PlaySFX("playerDefeated");
+                _uiManager.DeathPanel(this.playerNumber);
+                _gameManager.deathCountPlayer++;
+                this.GetComponent<CapsuleCollider2D>().enabled = false;
+                if (_gameManager.deathCountPlayer >= 2)
+                {
+                    Invoke("Defeated", 3f);
+                }
+            }
         }
         if (HP > 0)
         {
@@ -214,6 +300,6 @@ public class PlayerTopDown : MonoBehaviour
     }
     public void Defeated()
     {
-        _gameManager.LoadScene("Dungeon");
+        _gameManager.LoadScene(sceneToLoad);
     }
 }

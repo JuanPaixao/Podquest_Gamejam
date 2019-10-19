@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     public int HP;
     public string id;
     private GameManager _gameManager;
-    private Transform _player;
+    [SerializeField] private Transform _player, _player2, _target;
     public float lookDistance, speed, offset;
     private Rigidbody2D _rb;
     public GameObject enemyProjectile;
@@ -17,17 +17,34 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private Animator _blinkAnimator;
     private SpriteRenderer _spriteRenderer;
+    private float _followPlayerDistance;
 
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
-        _player = FindObjectOfType<PlayerTopDown>().GetComponent<Transform>();
+        if (_gameManager.gameMode == "Single")
+        {
+            _player = FindObjectOfType<PlayerTopDown>().GetComponent<Transform>();
+        }
+        if (_gameManager.gameMode == "Co-op")
+        {
+            PlayerTopDown[] players = FindObjectsOfType<PlayerTopDown>();
+            _player = players[0].GetComponent<Transform>();
+            _player2 = players[1].GetComponent<Transform>();
+        }
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
         shootRechargeTime = shootCooldown;
         Invoke("StartMoving", delayOffset);
         _blinkAnimator = GetComponent<Animator>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (this.id == "Boss")
+        {
+            if (_gameManager.gameMode == "Co-op" && _gameManager.deathCountPlayer == 0)
+            {
+                this.HP += 25;
+            }
+        }
     }
 
     private void Update()
@@ -40,11 +57,45 @@ public class Enemy : MonoBehaviour
         {
             if (startMoving)
             {
-                float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
+                if (_gameManager.gameMode == "Single")
+                {
+                    _target = _player;
+                }
+
+                if (_gameManager.gameMode == "Co-op")
+
+                {
+                    float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
+                    float distanceToPlayer2 = Vector2.Distance(_player2.position, this.transform.position);
+                    PlayerTopDown P1 = _player.GetComponent<PlayerTopDown>();
+                    PlayerTopDown P2 = _player2.GetComponent<PlayerTopDown>();
+                    if (P1.isDead)
+                    {
+                        _target = _player2;
+                    }
+                    else if (P2.isDead)
+                    {
+                        _target = _player;
+                    }
+                    else
+                    {
+                        if (distanceToPlayer < distanceToPlayer2)
+                        {
+                            _target = _player;
+                        }
+                        else
+                        {
+                            _target = _player2;
+                        }
+                    }
+                }
+
+                _followPlayerDistance = Vector2.Distance(_target.position, this.transform.position);
                 shootRechargeTime += Time.deltaTime;
-                _angle = Mathf.Atan2(_player.position.y, _player.position.x) * Mathf.Rad2Deg;
+                _angle = Mathf.Atan2(_target.position.y, _target.position.x) * Mathf.Rad2Deg;
                 LookPosition();
-                if (distanceToPlayer <= lookDistance && distanceToPlayer > 0.5f)
+
+                if (_followPlayerDistance <= lookDistance && _followPlayerDistance > 0.5f)
                 {
                     switch (id)
                     {
@@ -62,7 +113,7 @@ public class Enemy : MonoBehaviour
 
                         case "Cupcake":
 
-                            Vector2 directionFollow = new Vector2(this._player.position.x, this._player.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+                            Vector2 directionFollow = new Vector2(this._target.position.x, this._target.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
                             _rb.velocity = directionFollow * speed * Time.deltaTime;
                             if (shootRechargeTime >= shootCooldown)
                             {
@@ -74,7 +125,7 @@ public class Enemy : MonoBehaviour
 
                         case "Boss":
 
-                            Vector2 directionFollowBoss = new Vector2(this._player.position.x, this._player.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+                            Vector2 directionFollowBoss = new Vector2(this._target.position.x, this._target.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
                             _rb.velocity = directionFollowBoss * speed * Time.deltaTime;
                             if (shootRechargeTime >= shootCooldown)
                             {
@@ -85,7 +136,7 @@ public class Enemy : MonoBehaviour
 
                         case "Turtle":
 
-                            Vector2 directionRetreat = new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(this._player.position.x, this._player.position.y);
+                            Vector2 directionRetreat = new Vector2(this.transform.position.x, this.transform.position.y) - new Vector2(this._target.position.x, this._target.position.y);
                             _rb.velocity = directionRetreat * speed * Time.deltaTime;
                             if (shootRechargeTime >= shootCooldown)
                             {
@@ -110,9 +161,9 @@ public class Enemy : MonoBehaviour
     }
     public void Shoot()
     {
-        Vector2 directionShoot = new Vector2(this._player.position.x, this._player.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
+        Vector2 directionShoot = new Vector2(this._target.position.x, this._target.position.y) - new Vector2(this.transform.position.x, this.transform.position.y);
         GameObject enemyShoot = Instantiate(enemyProjectile, this.transform.position, Quaternion.identity);
-        enemyShoot.GetComponent<EnemyProjectile>().SetShootDirection(directionShoot, projectileSpeed, _player);
+        enemyShoot.GetComponent<EnemyProjectile>().SetShootDirection(directionShoot, projectileSpeed, _target);
 
         shootRechargeTime = 0;
     }
@@ -157,7 +208,7 @@ public class Enemy : MonoBehaviour
     }
     public void LookPosition()
     {
-        Vector3 lookPosition = _player.transform.position;
+        Vector3 lookPosition = _target.transform.position;
         Vector2 direction = new Vector2(lookPosition.x - transform.position.x, lookPosition.y - transform.position.y).normalized;
         if (this.id != "Boss")
         {

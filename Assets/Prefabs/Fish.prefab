@@ -162,6 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 1
   id: Fish
+  _player: {fileID: 0}
+  _player2: {fileID: 0}
+  _target: {fileID: 0}
   lookDistance: 9
   speed: 0
   offset: 0
@@ -169,7 +172,7 @@ MonoBehaviour:
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 2
-  projectileSpeed: 90
+  projectileSpeed: 300
   calories: 100
   isDefeated: 0
   startMoving: 0
