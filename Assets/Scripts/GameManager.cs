@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour
         {
             portal.SetActive(false);
         }
-
     }
     public void UpdateEnemyQuantity()
     {
