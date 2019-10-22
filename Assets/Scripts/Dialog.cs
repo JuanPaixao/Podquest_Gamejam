@@ -7,7 +7,7 @@ public class Dialog : MonoBehaviour
 {
     public TextMeshProUGUI textDisplay;
     public string[] sentences;
-    private int index;
+    [SerializeField] private int index;
     public float typingSpeed;
     public string sceneName;
     private GameManager _gameManager;
@@ -15,6 +15,17 @@ public class Dialog : MonoBehaviour
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
+        if (this.sceneName == "Game")
+        {
+            if (_gameManager.caloriesQuantity > _gameManager.caloriesToGet)
+            {
+                index = 0;
+            }
+            else
+            {
+                index = 1;
+            }
+        }
         StartCoroutine(TypeRoutine());
     }
     private IEnumerator TypeRoutine()
@@ -24,15 +35,17 @@ public class Dialog : MonoBehaviour
             textDisplay.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
+
         if (this.sceneName == "Game")
         {
             yield return new WaitForSeconds(20f);
             _gameManager.LoadScene("Dungeon");
         }
-        else if (this.sceneName == "Menu")
+        if (this.sceneName == "Menu")
         {
-            yield return new WaitForSeconds(46.5f);
+            yield return new WaitForSeconds(35.5f);
             _gameManager.LoadScene("Dungeon");
         }
+
     }
 }

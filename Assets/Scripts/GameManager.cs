@@ -11,11 +11,11 @@ public class GameManager : MonoBehaviour
     public float xMin, yMin, xMax, yMax;
     public int caloriesQuantity;
     public int caloriesToGet;
-    public DoorAnimation doorAnim;
-    public UIManager _uIManager;
+    private UIManager _uIManager;
     private SceneManager _sceneManager;
     public RandomizeTile randomizeTile;
     public GameObject finishGamePanel, pressAnythingToPlay, introPanel, skipObject;
+    public GameObject[] arrowUI;
     public bool finished, canPlay, canGoToScene;
     public string sceneName;
     public AudioSource audioSource;
@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("next stage, door number " + doorAnim.name);
             doorAnim = portals[randomDoor].GetComponent<DoorAnimation>();
             doorAnim.SetDoorStatus(true);
+            arrowUI[randomDoor].SetActive(true);
         }
     }
     public void FinishGame()
@@ -102,6 +103,10 @@ public class GameManager : MonoBehaviour
         randomizeTile.RandomizeGround();
         enemyQuantity = 0;
         roomNumber++;
+        foreach (var arrow in arrowUI)
+        {
+            arrow.SetActive(false);
+        }
         if (gameMode == "Single" || deathCountPlayer > 0)
         {
             maxEnemyOnRoom = initialRoomQuantity + roomNumber;

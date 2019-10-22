@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: d2a932762dd19c04b9eb4d47a864f4c1,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8322,6 +8322,10 @@ MonoBehaviour:
   shootSpeed: 7.5
   HP: 0
   maxHP: 10
+  _movHor: 0
+  _movVer: 0
+  _movHorRot: 0
+  _movVerRot: 0
   _animator: {fileID: 1039454615}
   isMoving: 0
   movingDirection: 
@@ -8332,6 +8336,8 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 1039454612}
   cooldownToShoot: 0
   rechargeTime: 0
+  sceneToLoad: 
+  playerNumber: 0
 --- !u!70 &1299682493
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -10219,35 +10225,35 @@ PrefabInstance:
     - target: {fileID: 7256493743775449373, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
       propertyPath: sentences.Array.data[0]
-      value: 
+      value: Em um pequeno vilarejo situado entre ilhas perdidas ao mar, existe uma
+        linhagem de guerreiros denominados Spooners, encarregados de conseguir alimentos
+        e recursos para seu povo.  No ponto mais alto do vilarejo, encontra-se uma
+        caverna de criaturas misticas capazes de fornecer o alimento para o vilarejo
+        inteiro apenas com fragmentos de seu corpo. Entretanto, as lendas dizem que
+        os guerreiros que permanecem dentro desta caverna ao anoitecer, se tornam
+        alimento dos montros que nela habitam.  E aqui que Spooner deve partir, em
+        meio a uma grande fome em sua vila seguindo seu destino em busca de alimentos
+        para seu povo.
       objectReference: {fileID: 0}
-    - target: {fileID: 7256493744960600409, guid: fa78780b9b755be4b908d713d2113bc5,
+    - target: {fileID: 7256493744039852034, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
-      propertyPath: m_Name
-      value: Intro
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7256493744960600410, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -419
       objectReference: {fileID: 0}
+    - target: {fileID: 7256493744960600409, guid: fa78780b9b755be4b908d713d2113bc5,
+        type: 3}
+      propertyPath: m_Name
+      value: Intro
+      objectReference: {fileID: 0}
     - target: {fileID: 7256493744960600411, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
       propertyPath: m_text
-      value: 'Em um pequeno vilarejo situado entre ilhas perdidas ao mar, existe uma
-        linhagem de guerreiros denominados Spooners, encarregados de conseguir alimentos
-        e recursos para seu povo.
-
-
-        No ponto mais alto do vilarejo, encontra-se uma caverna de criaturas misticas
-        capazes de fornecer o alimento para o vilarejo inteiro apenas com fragmentos
-        de seu corpo. Entretanto, as lendas dizem que os guerreiros que permanecem
-        dentro desta caverna ao anoitecer, se tornam alimento dos montros que nela
-        habitam.
-
-
-        E aqui que Spooner deve partir, em meio a uma grande fome em sua vila seguindo
-        seu destino em busca de alimentos para seu povo.'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7256493744960600411, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
@@ -10289,11 +10295,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7b9c705393fc6b94c9ea0e7f4cd63844, type: 2}
-    - target: {fileID: 7256493744039852034, guid: fa78780b9b755be4b908d713d2113bc5,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa78780b9b755be4b908d713d2113bc5, type: 3}
 --- !u!1 &1873586514
@@ -10346,13 +10347,12 @@ MonoBehaviour:
   yMax: -3.44
   caloriesQuantity: 0
   caloriesToGet: 0
-  doorAnim: {fileID: 0}
-  _uIManager: {fileID: 0}
   randomizeTile: {fileID: 0}
   finishGamePanel: {fileID: 0}
   pressAnythingToPlay: {fileID: 1664470448}
   introPanel: {fileID: 875869397}
   skipObject: {fileID: 1210562141}
+  arrowUI: []
   finished: 0
   canPlay: 0
   canGoToScene: 0
@@ -10375,6 +10375,8 @@ MonoBehaviour:
   playerDefeated: {fileID: 0}
   playerGrab: {fileID: 0}
   doorSound: {fileID: 0}
+  gameMode: 
+  deathCountPlayer: 0
 --- !u!4 &1873586516
 Transform:
   m_ObjectHideFlags: 0
@@ -11054,8 +11056,10 @@ MonoBehaviour:
   pointerDay: {fileID: 1494086848}
   timeSpeed: 0
   text: {fileID: 1439562486}
-  slider: {fileID: 729493113}
+  sliderP1: {fileID: 0}
+  sliderP2: {fileID: 0}
   gameManager: {fileID: 0}
+  deathPanel: []
 --- !u!1001 &2054326052
 PrefabInstance:
   m_ObjectHideFlags: 0
