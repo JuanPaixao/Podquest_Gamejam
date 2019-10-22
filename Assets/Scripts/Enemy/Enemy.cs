@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
         {
             _player = FindObjectOfType<PlayerTopDown>().GetComponent<Transform>();
         }
-        if (_gameManager.gameMode == "Co-op")
+        if (_gameManager.gameMode == "Co-op" || _gameManager.gameMode == "Vs")
         {
             PlayerTopDown[] players = FindObjectsOfType<PlayerTopDown>();
             _player = players[0].GetComponent<Transform>();
@@ -63,8 +63,7 @@ public class Enemy : MonoBehaviour
                     _target = _player;
                 }
 
-                if (_gameManager.gameMode == "Co-op")
-
+                if (_gameManager.gameMode == "Co-op" || _gameManager.gameMode == "Vs")
                 {
                     float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
                     float distanceToPlayer2 = Vector2.Distance(_player2.position, this.transform.position);

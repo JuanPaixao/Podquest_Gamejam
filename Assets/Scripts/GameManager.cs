@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     private Enemy[] enemy;
     public int enemyQuantity, maxEnemyOnRoom, initialRoomQuantity, roomNumber;
     public GameObject[] portals, enemiesObjects;
-    public float xMin, yMin, xMax, yMax;
+    public float xMin, yMin, xMax, yMax, xMaxP2, xMinP2, yMinP2, yMaxP2;
     public int caloriesQuantity;
     public int caloriesToGet;
-    private UIManager _uIManager;
+    public UIManager uIManager;
     private SceneManager _sceneManager;
     public RandomizeTile randomizeTile;
     public GameObject finishGamePanel, pressAnythingToPlay, introPanel, skipObject;
@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
     cakeDefeated, fishDefeated, turtleDefeated, bossDefeated, playerDefeated, playerGrab, doorSound;
     public string gameMode;
     public int deathCountPlayer;
+    public bool isVs;
     private void Start()
     {
-        _uIManager = FindObjectOfType<UIManager>();
         initialRoomQuantity = maxEnemyOnRoom;
         maxEnemyOnRoom = initialRoomQuantity + roomNumber;
         Cursor.visible = false;
@@ -111,20 +111,30 @@ public class GameManager : MonoBehaviour
         {
             maxEnemyOnRoom = initialRoomQuantity + roomNumber;
         }
-        else
+        else if (gameMode == "Co-op")
         {
             maxEnemyOnRoom = initialRoomQuantity + roomNumber * 2;
         }
+
         if (roomNumber % 5 == 0)
         {
             Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
+            if (gameMode == "Vs")
+            {
+                Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMinP2, xMaxP2), (Random.Range(yMinP2, yMaxP2))), Quaternion.identity);
+            }
         }
+
         else
         {
             for (int i = 0; i < maxEnemyOnRoom; i++)
             {
                 int monsterToCreate = Random.Range(0, 3);
                 Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
+                if (gameMode == "Vs")
+                {
+                    Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMinP2, xMaxP2), (Random.Range(yMinP2, yMaxP2))), Quaternion.identity);
+                }
             }
         }
         enemy = FindObjectsOfType<Enemy>();
@@ -136,7 +146,7 @@ public class GameManager : MonoBehaviour
     public void AddCalories(int calories)
     {
         this.caloriesQuantity += calories;
-        _uIManager.SetScore(caloriesQuantity);
+        uIManager.SetScore(caloriesQuantity);
     }
     public void LoadScene(string sceneName)
     {

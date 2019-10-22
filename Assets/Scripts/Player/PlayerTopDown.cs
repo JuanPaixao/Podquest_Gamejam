@@ -9,17 +9,17 @@ public class PlayerTopDown : MonoBehaviour
     public bool isMoving;
     public string movingDirection;
     public GameObject projectile, fade;
-    private GameManager _gameManager;
+    public GameManager gameManager;
     private UIManager _uiManager;
     public bool isDead;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     public float cooldownToShoot, rechargeTime;
     public string sceneToLoad;
     public int playerNumber;
+    public float xPositivePosition, xNegativePosition, yPositivePosition, yNegativePosition;
 
     private void Awake()
     {
-        _gameManager = FindObjectOfType<GameManager>();
         _uiManager = FindObjectOfType<UIManager>();
     }
     private void Start()
@@ -33,7 +33,7 @@ public class PlayerTopDown : MonoBehaviour
     }
     private void Update()
     {
-        if (!_gameManager.finished)
+        if (!gameManager.finished)
         {
             if (!isDead)
             {
@@ -59,21 +59,21 @@ public class PlayerTopDown : MonoBehaviour
                 _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
                 cooldownToShoot -= Time.deltaTime;
 
-                if (this.transform.position.x <= -12.79f)
+                if (this.transform.position.x <= this.xNegativePosition)
                 {
-                    this.transform.position = new Vector2(-12.79f, this.transform.position.y);
+                    this.transform.position = new Vector2(this.xNegativePosition, this.transform.position.y);
                 }
-                if (this.transform.position.x >= 9.76)
+                if (this.transform.position.x >= this.xPositivePosition)
                 {
-                    this.transform.position = new Vector2(9.76f, this.transform.position.y);
+                    this.transform.position = new Vector2(this.xPositivePosition, this.transform.position.y);
                 }
-                if (this.transform.position.y >= 6.89f)
+                if (this.transform.position.y >= this.yPositivePosition)
                 {
-                    this.transform.position = new Vector2(this.transform.position.x, 6.89f);
+                    this.transform.position = new Vector2(this.transform.position.x, this.yPositivePosition);
                 }
-                if (this.transform.position.y <= -5.55f)
+                if (this.transform.position.y <= this.yNegativePosition)
                 {
-                    this.transform.position = new Vector2(this.transform.position.x, -5.55f);
+                    this.transform.position = new Vector2(this.transform.position.x, this.yNegativePosition);
                 }
                 //
                 if (movement.magnitude != 0)
@@ -139,7 +139,7 @@ public class PlayerTopDown : MonoBehaviour
                             GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
                             shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
                             _animator.SetTrigger("Shoot");
-                            _gameManager.PlaySFX("playerShoot");
+                            gameManager.PlaySFX("playerShoot");
                             cooldownToShoot = rechargeTime;
                         }
                     }
@@ -150,7 +150,7 @@ public class PlayerTopDown : MonoBehaviour
                             GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
                             shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
                             _animator.SetTrigger("Shoot");
-                            _gameManager.PlaySFX("playerShoot");
+                            gameManager.PlaySFX("playerShoot");
                             cooldownToShoot = rechargeTime;
                         }
                     }
@@ -165,7 +165,7 @@ public class PlayerTopDown : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_gameManager.enemyQuantity <= 0)
+        if (gameManager.enemyQuantity <= 0)
         {
             if (other.gameObject.CompareTag("Portal"))
             {
@@ -188,7 +188,7 @@ public class PlayerTopDown : MonoBehaviour
 
                 }
                 fade.SetActive(true);
-                _gameManager.PlaySFX("doorSound");
+                gameManager.PlaySFX("doorSound");
             }
         }
         if (other.gameObject.CompareTag("EnemyShoot"))
@@ -216,11 +216,11 @@ public class PlayerTopDown : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.LeftControl))
                     {
-                        _gameManager.AddCalories(tempEnemy.calories);
+                        gameManager.AddCalories(tempEnemy.calories);
                         _animator.SetTrigger("Catch");
                         Destroy(other.gameObject);
-                        _gameManager.UpdateEnemyQuantity();
-                        _gameManager.PlaySFX("playerGrab");
+                        gameManager.UpdateEnemyQuantity();
+                        gameManager.PlaySFX("playerGrab");
                     }
                 }
 
@@ -228,11 +228,11 @@ public class PlayerTopDown : MonoBehaviour
                 {
                     if (Input.GetButton("Xbox_A"))
                     {
-                        _gameManager.AddCalories(tempEnemy.calories);
+                        gameManager.AddCalories(tempEnemy.calories);
                         _animator.SetTrigger("Catch");
                         Destroy(other.gameObject);
-                        _gameManager.UpdateEnemyQuantity();
-                        _gameManager.PlaySFX("playerGrab");
+                        gameManager.UpdateEnemyQuantity();
+                        gameManager.PlaySFX("playerGrab");
                     }
                 }
                 //  else if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -258,20 +258,20 @@ public class PlayerTopDown : MonoBehaviour
         }
         if (HP <= 0)
         {
-            if (_gameManager.gameMode == "Single")
+            if (gameManager.gameMode == "Single")
             {
                 isDead = true;
-                _gameManager.PlaySFX("playerDefeated");
+                gameManager.PlaySFX("playerDefeated");
                 Invoke("Defeated", 3f);
             }
-            else if (_gameManager.gameMode == "Co-op")
+            else if (gameManager.gameMode == "Co-op")
             {
                 isDead = true;
-                _gameManager.PlaySFX("playerDefeated");
+                gameManager.PlaySFX("playerDefeated");
                 _uiManager.DeathPanel(this.playerNumber);
-                _gameManager.deathCountPlayer++;
+                gameManager.deathCountPlayer++;
                 this.GetComponent<CapsuleCollider2D>().enabled = false;
-                if (_gameManager.deathCountPlayer >= 2)
+                if (gameManager.deathCountPlayer >= 2)
                 {
                     Invoke("Defeated", 3f);
                 }
@@ -280,7 +280,7 @@ public class PlayerTopDown : MonoBehaviour
         if (HP > 0)
         {
             _spriteRenderer.enabled = false;
-            _gameManager.PlaySFX("playerHitted");
+            gameManager.PlaySFX("playerHitted");
             Invoke("Restore", 0.15f);
         }
     }
@@ -298,6 +298,6 @@ public class PlayerTopDown : MonoBehaviour
     }
     public void Defeated()
     {
-        _gameManager.LoadScene(sceneToLoad);
+        gameManager.LoadScene(sceneToLoad);
     }
 }
