@@ -34,11 +34,11 @@ public class PlayerTopDown : MonoBehaviour
     }
     private void Update()
     {
-        if (!gameManager.finished)
+        if (!gameManager.finished && !gameManager.paused)
         {
             if (!isDead)
             {
-                if (playerNumber == 1)
+                if (playerNumber == 1 || (gameManager.gameMode == "Single" && !gameManager.isVs))
                 {
                     _movHor = Input.GetAxisRaw("HorizontalKeyboard");
                     _movVer = Input.GetAxisRaw("VerticalKeyboard");
@@ -46,7 +46,7 @@ public class PlayerTopDown : MonoBehaviour
                     _movHorRot = Input.GetAxisRaw("HorizontalRot");
                     _movVerRot = Input.GetAxisRaw("VerticalRot");
                 }
-                if (playerNumber == 2)
+                if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
                 {
                     _movHor = Input.GetAxis("HorizontalJoystick");
                     _movVer = Input.GetAxis("VerticalJoystick");
@@ -144,7 +144,7 @@ public class PlayerTopDown : MonoBehaviour
                             cooldownToShoot = rechargeTime;
                         }
                     }
-                    if (playerNumber == 2)
+                    if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
                     {
                         if (Input.GetAxisRaw("JoystickShoot_L") != 0)
                         {
@@ -225,7 +225,7 @@ public class PlayerTopDown : MonoBehaviour
                     }
                 }
 
-                if (playerNumber == 2)
+                if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
                 {
                     if (Input.GetButton("Xbox_A"))
                     {
@@ -270,7 +270,7 @@ public class PlayerTopDown : MonoBehaviour
                 }
                 else
                 {
-                    _multiplayerManager.AddDeathCount(this.playerNumber,this.gameManager.caloriesQuantity);
+                    _multiplayerManager.AddDeathCount(this.playerNumber, this.gameManager.caloriesQuantity);
                 }
             }
             else if (gameManager.gameMode == "Co-op")

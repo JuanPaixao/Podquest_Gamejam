@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MultiplayerManager : MonoBehaviour
 {
@@ -45,6 +46,12 @@ public class MultiplayerManager : MonoBehaviour
                 _dialog.index = 2;
             }
             dialog.SetActive(true);
+            StartCoroutine(RestartVs());
         }
+    }
+    private IEnumerator RestartVs()
+    {
+        yield return new WaitForSeconds(10f);
+        FindObjectOfType<GameManager>().LoadScene("DungeonVs");
     }
 }

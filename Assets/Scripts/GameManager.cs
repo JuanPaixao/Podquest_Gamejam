@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class GameManager : MonoBehaviour
     public UIManager uIManager;
     private SceneManager _sceneManager;
     public RandomizeTile randomizeTile;
-    public GameObject finishGamePanel, pressAnythingToPlay, introPanel, skipObject;
+    public GameObject finishGamePanel, pressAnythingToPlay, introPanel, arrowSelectionMenu, skipObject;
     public GameObject[] arrowUI;
     public bool finished, canPlay, canGoToScene;
     public string sceneName;
@@ -24,8 +23,9 @@ public class GameManager : MonoBehaviour
     cakeDefeated, fishDefeated, turtleDefeated, bossDefeated, playerDefeated, playerGrab, doorSound;
     public string gameMode;
     public int deathCountPlayer;
-    public bool isVs;
+    public bool isVs, paused;
     public int id;
+    public GameObject menuContent, pausePanel;
     private void Start()
     {
         initialRoomQuantity = maxEnemyOnRoom;
@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
         {
             Invoke("ActivePressToPlay", 4);
         }
+        Time.timeScale = 1;
+        paused = false;
     }
     private void Update()
     {
@@ -43,15 +45,25 @@ public class GameManager : MonoBehaviour
         {
             if (Input.anyKeyDown && canPlay)
             {
-                introPanel.SetActive(true);
+                //  introPanel.SetActive(true);
+                arrowSelectionMenu.SetActive(true);
+                pressAnythingToPlay.SetActive(false);
                 Invoke("CanPlay", 4);
             }
             if (canGoToScene)
             {
-                if (Input.GetKey(KeyCode.Escape))
+                if (Input.GetKey(KeyCode.Escape) || (Input.GetButton("Escape")))
                 {
-                    LoadScene("Dungeon");
+                    string sceneToLoad = FindObjectOfType<Dialog>().sceneToLoad;
+                    LoadScene(sceneToLoad);
                 }
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Pause"))
+            {
+                Pause();
             }
         }
     }
@@ -206,5 +218,17 @@ public class GameManager : MonoBehaviour
                 audioSource.PlayOneShot(doorSound, 1);
                 break;
         }
+    }
+    public void Pause()
+    {
+        pausePanel.SetActive(true);
+        Time.timeScale = 0;
+        paused = true;
+    }
+    public void Resume()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
+        paused = false;
     }
 }
