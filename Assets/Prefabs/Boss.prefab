@@ -59,11 +59,12 @@ MonoBehaviour:
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 3
-  projectileSpeed: 390
+  projectileSpeed: 425
   calories: 1000
   isDefeated: 0
   startMoving: 0
   delayOffset: 0
+  createdFromPlayer: 0
 --- !u!50 &4140924100979038817
 Rigidbody2D:
   serializedVersion: 4

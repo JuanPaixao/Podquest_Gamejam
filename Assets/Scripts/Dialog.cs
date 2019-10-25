@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dialog : MonoBehaviour
 {
@@ -11,10 +11,12 @@ public class Dialog : MonoBehaviour
     public float typingSpeed;
     public string sceneName;
     private GameManager _gameManager;
-
+    public string sceneToLoad;
+    private SelectMode _selectMode;
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
+
         if (this.sceneName == "Game" && !_gameManager.isVs)
         {
             if (_gameManager.caloriesQuantity > _gameManager.caloriesToGet)
@@ -25,6 +27,11 @@ public class Dialog : MonoBehaviour
             {
                 index = 1;
             }
+        }
+        if (this.sceneName == "Menu")
+        {
+            _selectMode = FindObjectOfType<SelectMode>();
+            this.sceneToLoad = _selectMode.sceneToLoad;
         }
         StartCoroutine(TypeRoutine());
     }
@@ -39,12 +46,13 @@ public class Dialog : MonoBehaviour
         if (this.sceneName == "Game")
         {
             yield return new WaitForSeconds(20f);
-            _gameManager.LoadScene("Dungeon");
+            string thisScene = SceneManager.GetActiveScene().name;
+            _gameManager.LoadScene(thisScene);
         }
         if (this.sceneName == "Menu")
         {
-            yield return new WaitForSeconds(35.5f);
-            _gameManager.LoadScene("Dungeon");
+            yield return new WaitForSeconds(32.5f);
+            _gameManager.LoadScene(sceneToLoad);
         }
 
     }

@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 04e0623912d912042a127e0efcc5e892
@@ -17,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon2P.unity
     guid: 1ff70a3a8f94d55418e04e7f3cc03039
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/DungeonVs.unity
+    guid: 681ece05668bbcb4eb32802eaf7cba5d
   m_configObjects: {}
