@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private Animator _blinkAnimator;
     private SpriteRenderer _spriteRenderer;
     private float _followPlayerDistance;
+    public int createdFromPlayer;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class Enemy : MonoBehaviour
         {
             _player = FindObjectOfType<PlayerTopDown>().GetComponent<Transform>();
         }
-        if (_gameManager.gameMode == "Co-op" || _gameManager.gameMode == "Vs")
+        if (_gameManager.gameMode == "Co-op" || _gameManager.isVs)
         {
             PlayerTopDown[] players = FindObjectsOfType<PlayerTopDown>();
             _player = players[0].GetComponent<Transform>();
@@ -63,7 +64,7 @@ public class Enemy : MonoBehaviour
                     _target = _player;
                 }
 
-                if (_gameManager.gameMode == "Co-op" || _gameManager.gameMode == "Vs")
+                if (_gameManager.gameMode == "Co-op" || _gameManager.isVs)
                 {
                     float distanceToPlayer = Vector2.Distance(_player.position, this.transform.position);
                     float distanceToPlayer2 = Vector2.Distance(_player2.position, this.transform.position);

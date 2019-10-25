@@ -17,10 +17,11 @@ public class PlayerTopDown : MonoBehaviour
     public string sceneToLoad;
     public int playerNumber;
     public float xPositivePosition, xNegativePosition, yPositivePosition, yNegativePosition;
-
+    private MultiplayerManager _multiplayerManager;
     private void Awake()
     {
         _uiManager = FindObjectOfType<UIManager>();
+        _multiplayerManager = FindObjectOfType<MultiplayerManager>();
     }
     private void Start()
     {
@@ -258,11 +259,19 @@ public class PlayerTopDown : MonoBehaviour
         }
         if (HP <= 0)
         {
+            this.GetComponent<CapsuleCollider2D>().enabled = false;
             if (gameManager.gameMode == "Single")
             {
                 isDead = true;
                 gameManager.PlaySFX("playerDefeated");
-                Invoke("Defeated", 3f);
+                if (!gameManager.isVs)
+                {
+                    Invoke("Defeated", 3f);
+                }
+                else
+                {
+                    _multiplayerManager.AddDeathCount(this.playerNumber,this.gameManager.caloriesQuantity);
+                }
             }
             else if (gameManager.gameMode == "Co-op")
             {

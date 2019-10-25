@@ -36,5 +36,9 @@ public class EnemyProjectile : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

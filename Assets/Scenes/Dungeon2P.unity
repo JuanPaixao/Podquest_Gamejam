@@ -1260,16 +1260,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634180769}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1344915056}
-  m_RootOrder: 1
+  m_Father: {fileID: 1996637974}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.8, y: -4.2}
+  m_AnchoredPosition: {x: -45.59998, y: 194.80005}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634180771
@@ -1858,6 +1858,11 @@ PrefabInstance:
       propertyPath: yPositivePosition
       value: 7.12
       objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1873586515}
     - target: {fileID: 7262485787044162235, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Name
@@ -5190,7 +5195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1052084021
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5203,7 +5208,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5386,7 +5391,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -5538,7 +5543,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -7307,7 +7312,7 @@ RectTransform:
   m_Children:
   - {fileID: 868201266}
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -7466,7 +7471,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -7910,7 +7915,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1534075909}
-  - {fileID: 634180770}
   m_Father: {fileID: 1996637974}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9032,7 +9036,7 @@ MonoBehaviour:
   yMaxP2: 0
   caloriesQuantity: 0
   caloriesToGet: 0
-  uIManager: {fileID: 0}
+  uIManager: {fileID: 1996637975}
   randomizeTile: {fileID: 1873586518}
   finishGamePanel: {fileID: 474774565}
   pressAnythingToPlay: {fileID: 0}
@@ -9068,6 +9072,7 @@ MonoBehaviour:
   gameMode: Co-op
   deathCountPlayer: 0
   isVs: 0
+  id: 0
 --- !u!4 &1873586516
 Transform:
   m_ObjectHideFlags: 0
@@ -9338,7 +9343,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -9503,7 +9508,7 @@ RectTransform:
   m_Children:
   - {fileID: 1300151676}
   m_Father: {fileID: 1996637974}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -9733,6 +9738,7 @@ RectTransform:
   - {fileID: 542949126}
   - {fileID: 1344915056}
   - {fileID: 1439562485}
+  - {fileID: 634180770}
   - {fileID: 1971929984}
   - {fileID: 1128017769}
   - {fileID: 1140898148}
@@ -10153,15 +10159,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7256493743775449373, guid: fa78780b9b755be4b908d713d2113bc5,
-        type: 3}
-      propertyPath: sentences.Array.data[0]
-      value: Ao perceber que estava anoitecendo depois de muita luta, Spooner retornou
-        ao seu vilarejo com vida antes que fosse tarde demais, e com recursos suficientes
-        para acabar com a fome de seu povo. Com mais uma tarefa bem sucedida, Spooner
-        se prepara para o combate em futuras aventuras em busca de alimento para seu
-        povo novamente.
-      objectReference: {fileID: 0}
     - target: {fileID: 7256493744039852034, guid: fa78780b9b755be4b908d713d2113bc5,
         type: 3}
       propertyPath: m_Enabled
@@ -10186,6 +10183,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.21568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256493743775449373, guid: fa78780b9b755be4b908d713d2113bc5,
+        type: 3}
+      propertyPath: sentences.Array.data[0]
+      value: Ao perceber que estava anoitecendo depois de muita luta, Spooner retornou
+        ao seu vilarejo com vida antes que fosse tarde demais, e com recursos suficientes
+        para acabar com a fome de seu povo. Com mais uma tarefa bem sucedida, Spooner
+        se prepara para o combate em futuras aventuras em busca de alimento para seu
+        povo novamente.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa78780b9b755be4b908d713d2113bc5, type: 3}
@@ -10281,6 +10287,11 @@ PrefabInstance:
       propertyPath: yPositivePosition
       value: 7.12
       objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1873586515}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r

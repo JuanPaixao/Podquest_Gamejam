@@ -7,7 +7,7 @@ public class Dialog : MonoBehaviour
 {
     public TextMeshProUGUI textDisplay;
     public string[] sentences;
-    [SerializeField] private int index;
+    public int index;
     public float typingSpeed;
     public string sceneName;
     private GameManager _gameManager;
@@ -15,7 +15,7 @@ public class Dialog : MonoBehaviour
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
-        if (this.sceneName == "Game")
+        if (this.sceneName == "Game" && !_gameManager.isVs)
         {
             if (_gameManager.caloriesQuantity > _gameManager.caloriesToGet)
             {

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public string gameMode;
     public int deathCountPlayer;
     public bool isVs;
+    public int id;
     private void Start()
     {
         initialRoomQuantity = maxEnemyOnRoom;
@@ -118,11 +119,8 @@ public class GameManager : MonoBehaviour
 
         if (roomNumber % 5 == 0)
         {
-            Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
-            if (gameMode == "Vs")
-            {
-                Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMinP2, xMaxP2), (Random.Range(yMinP2, yMaxP2))), Quaternion.identity);
-            }
+            var tempEnemyObject = Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
+            tempEnemyObject.GetComponent<Enemy>().createdFromPlayer = id;
         }
 
         else
@@ -130,17 +128,20 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < maxEnemyOnRoom; i++)
             {
                 int monsterToCreate = Random.Range(0, 3);
-                Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
-                if (gameMode == "Vs")
-                {
-                    Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMinP2, xMaxP2), (Random.Range(yMinP2, yMaxP2))), Quaternion.identity);
-                }
+                var tempEnemyObject = Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
+                tempEnemyObject.GetComponent<Enemy>().createdFromPlayer = id;
+
             }
         }
         enemy = FindObjectsOfType<Enemy>();
+
         foreach (Enemy monster in enemy)
         {
-            enemyQuantity++;
+            int tempEnemyID = monster.createdFromPlayer;
+            if (tempEnemyID == this.id)
+            {
+                enemyQuantity++;
+            }
         }
     }
     public void AddCalories(int calories)
