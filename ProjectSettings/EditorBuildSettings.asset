@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon.unity
     guid: 718b71ef0146ec64c9f27cd88771b61a
-  - enabled: 0
-    path: Assets/__DELETED_GUID_Trash/53e7176c850f57a4d949f7845bf3679d
-    guid: 53e7176c850f57a4d949f7845bf3679d
   - enabled: 1
     path: Assets/Scenes/Dungeon2P.unity
-    guid: bd2820dd3d652174c93151726c5e5057
+    guid: 1ff70a3a8f94d55418e04e7f3cc03039
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

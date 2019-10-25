@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: ca1cc85aedee5de4eab9b68dd92fa840,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -9111,6 +9111,36 @@ PrefabInstance:
       propertyPath: fade
       value: 
       objectReference: {fileID: 1052084020}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: xPositivePosition
+      value: 9.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: xNegativePosition
+      value: -12.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: yPositivePosition
+      value: 7.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: yNegativePosition
+      value: -5.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1873586515}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: sceneToLoad
+      value: Dungeon
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r
@@ -9643,8 +9673,13 @@ MonoBehaviour:
   yMin: 4.58
   xMax: 7.11
   yMax: -3.44
+  xMaxP2: 0
+  xMinP2: 0
+  yMinP2: 0
+  yMaxP2: 0
   caloriesQuantity: 0
   caloriesToGet: 0
+  uIManager: {fileID: 1996637975}
   randomizeTile: {fileID: 1873586518}
   finishGamePanel: {fileID: 474774565}
   pressAnythingToPlay: {fileID: 0}
@@ -9679,6 +9714,8 @@ MonoBehaviour:
   doorSound: {fileID: 8300000, guid: ecbd5ba89f74ac947804197febd3cb02, type: 3}
   gameMode: Single
   deathCountPlayer: 0
+  isVs: 0
+  id: 0
 --- !u!4 &1873586516
 Transform:
   m_ObjectHideFlags: 0
@@ -9739,6 +9776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 923380066}
+  tilemapP2: {fileID: 0}
   tiles:
   - {fileID: 11400000, guid: d9a862b817657ca4cb16c6ad4eee1c58, type: 2}
   - {fileID: 11400000, guid: 9470bc807c4dafb45a4af07ece64e0bb, type: 2}

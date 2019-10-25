@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class RandomizeTile : MonoBehaviour
 {
-    public Tilemap tilemap;
+    public Tilemap tilemap, tilemapP2;
     public Tile[] tiles;
     private Sprite[] groundSprites;
 
     public int numberOfTiles;
     public TileBase[] allTiles;
     public TileData tileData;
-
     private void Start()
     {
         RandomizeGround();
