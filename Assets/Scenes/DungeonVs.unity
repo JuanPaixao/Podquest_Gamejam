@@ -1851,8 +1851,9 @@ GameObject:
   - component: {fileID: 281345530}
   - component: {fileID: 281345532}
   - component: {fileID: 281345531}
+  - component: {fileID: 281345533}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ImageP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1915,6 +1916,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281345529}
   m_CullTransparentMesh: 0
+--- !u!95 &281345533
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281345529}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f57f4fbf0699844d873129960acccac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &284948189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4393,6 +4413,7 @@ GameObject:
   - component: {fileID: 634180770}
   - component: {fileID: 634180772}
   - component: {fileID: 634180771}
+  - component: {fileID: 634180773}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4457,6 +4478,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634180769}
   m_CullTransparentMesh: 0
+--- !u!95 &634180773
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634180769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9f57f4fbf0699844d873129960acccac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &634914984
 GameObject:
   m_ObjectHideFlags: 0
@@ -8757,6 +8797,8 @@ MonoBehaviour:
   - {fileID: 4733247746065037035, guid: 727bb016e48d13c40b5c2e7c520c8a5a, type: 3}
   - {fileID: 8901263217168463232, guid: d283c1f91872657479496c1b353b9fcc, type: 3}
   - {fileID: 2230265175892527530, guid: 0e8075188cc79d74ea8c41b6ce73719d, type: 3}
+  - {fileID: 5690291422587314482, guid: dca5c436710880d44b217dff1d8c575e, type: 3}
+  - {fileID: 2194359272670357382, guid: 9f0037077a21a4d4794bc7635f44d46e, type: 3}
   - {fileID: 7638765525765078707, guid: 41b34a88b5b97fc4c8fa4628d3c3643a, type: 3}
   xMin: 27.37
   yMin: -3.06
@@ -20153,6 +20195,7 @@ MonoBehaviour:
   gameManager: {fileID: 1011712874}
   deathPanel:
   - {fileID: 479012295}
+  foodBagAnimator: {fileID: 281345533}
 --- !u!114 &1873518252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20258,6 +20301,8 @@ MonoBehaviour:
   - {fileID: 4733247746065037035, guid: 727bb016e48d13c40b5c2e7c520c8a5a, type: 3}
   - {fileID: 8901263217168463232, guid: d283c1f91872657479496c1b353b9fcc, type: 3}
   - {fileID: 2230265175892527530, guid: 0e8075188cc79d74ea8c41b6ce73719d, type: 3}
+  - {fileID: 5690291422587314482, guid: dca5c436710880d44b217dff1d8c575e, type: 3}
+  - {fileID: 2194359272670357382, guid: 9f0037077a21a4d4794bc7635f44d46e, type: 3}
   - {fileID: 7638765525765078707, guid: 41b34a88b5b97fc4c8fa4628d3c3643a, type: 3}
   xMin: -9.22
   yMin: 4.58
@@ -22017,6 +22062,7 @@ MonoBehaviour:
   deathPanel:
   - {fileID: 278407245}
   - {fileID: 479012295}
+  foodBagAnimator: {fileID: 634180773}
 --- !u!1 &2017324511
 GameObject:
   m_ObjectHideFlags: 0

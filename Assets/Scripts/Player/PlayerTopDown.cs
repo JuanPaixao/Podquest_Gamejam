@@ -46,7 +46,7 @@ public class PlayerTopDown : MonoBehaviour
                     _movHorRot = Input.GetAxisRaw("HorizontalRot");
                     _movVerRot = Input.GetAxisRaw("VerticalRot");
                 }
-                if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
+                if (playerNumber == 2)
                 {
                     _movHor = Input.GetAxis("HorizontalJoystick");
                     _movVer = Input.GetAxis("VerticalJoystick");

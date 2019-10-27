@@ -59,7 +59,7 @@ MonoBehaviour:
     type: 3}
   shootRechargeTime: 0
   shootCooldown: 3
-  projectileSpeed: 425
+  projectileSpeed: 450
   calories: 1000
   isDefeated: 0
   startMoving: 0

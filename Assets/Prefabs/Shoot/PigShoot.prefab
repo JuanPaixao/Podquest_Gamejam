@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8421058708043862496}
   - component: {fileID: 5272534431356204927}
   m_Layer: 0
-  m_Name: TurtleShoot
+  m_Name: PigShoot
   m_TagString: EnemyShoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,8 +64,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.1183884, y: 0.02510786}
-  m_Size: {x: 0.31375656, y: 0.20587}
+  m_Offset: {x: 0.06670231, y: -0.014477959}
+  m_Size: {x: 0.3997118, y: 0.29951045}
   m_Direction: 1
 --- !u!50 &5272534431356204927
 Rigidbody2D:
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: 877442be566168f42acd8b7f2160ea92, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2197adebdeaf92541afd43fb264569e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -214,8 +214,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.89019614, b: 0.28627452, a: 1}
-  m_Intensity: 0.75
+  m_Color: {r: 1, g: 0.82437176, b: 0.28773582, a: 1}
+  m_Intensity: 1.22
   m_LightVolumeOpacity: 0.288
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}

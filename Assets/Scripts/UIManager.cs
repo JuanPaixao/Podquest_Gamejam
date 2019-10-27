@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public Slider sliderP1, sliderP2;
     public GameManager gameManager;
     public GameObject[] deathPanel;
+    public Animator foodBagAnimator;
 
     private void Start()
     {
@@ -34,6 +35,14 @@ public class UIManager : MonoBehaviour
     public void SetScore(int text)
     {
         this.text.text = text.ToString() + " kcal";
+        if (text >= 2000 && text < 5000)
+        {
+            foodBagAnimator.SetInteger("stage", 1);
+        }
+        if (text >= 5000)
+        {
+            foodBagAnimator.SetInteger("stage", 2);
+        }
     }
     public void SetHP(int hp, int player)
     {
