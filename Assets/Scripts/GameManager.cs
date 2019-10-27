@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (roomNumber % 5 == 0)
         {
-            var tempEnemyObject = Instantiate(enemiesObjects[3], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
+            var tempEnemyObject = Instantiate(enemiesObjects[5], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
             tempEnemyObject.GetComponent<Enemy>().createdFromPlayer = id;
         }
 
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < maxEnemyOnRoom; i++)
             {
-                int monsterToCreate = Random.Range(0, 3);
+                int monsterToCreate = Random.Range(0, 5);
                 var tempEnemyObject = Instantiate(enemiesObjects[monsterToCreate], new Vector2(Random.Range(xMin, xMax), (Random.Range(yMin, yMax))), Quaternion.identity);
                 tempEnemyObject.GetComponent<Enemy>().createdFromPlayer = id;
 
