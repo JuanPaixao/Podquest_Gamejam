@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        Invoke("Destroy", 4);
+        Invoke("Destroy", 3);
         this.transform.Rotate(0, 0, 0);
     }
     public void CreateProjectile(string direction, float projectileSpeed)

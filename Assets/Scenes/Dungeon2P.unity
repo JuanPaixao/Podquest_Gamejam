@@ -1206,7 +1206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 539, y: -172.97084}
+  m_AnchoredPosition: {x: 237.1, y: -172.97084}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542949127
@@ -1895,6 +1895,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1873586515}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: rechargeTime
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162235, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Name
@@ -10536,6 +10541,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1873586515}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: rechargeTime
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r

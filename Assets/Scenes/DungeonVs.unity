@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: ca1cc85aedee5de4eab9b68dd92fa840,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -16991,6 +16991,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1873586515}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: rechargeTime
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r
@@ -19797,6 +19802,11 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1011712874}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: rechargeTime
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r

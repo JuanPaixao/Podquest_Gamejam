@@ -19,6 +19,12 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private float _followPlayerDistance;
     public int createdFromPlayer;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -179,15 +185,18 @@ public class Enemy : MonoBehaviour
 
             if (this.id == "Boss")
             {
-                _gameManager.PlaySFX("bossDefeated");
+                _audioSource.PlayOneShot(_gameManager.bossDefeated);
+                //   _gameManager.PlaySFX("bossDefeated");
             }
             if (this.id == "Cupcake")
             {
-                _gameManager.PlaySFX("cakeDefeated");
+                _audioSource.PlayOneShot(_gameManager.cakeDefeated);
+                // _gameManager.PlaySFX("cakeDefeated");
             }
             if (this.id == "Turtle")
             {
-                _gameManager.PlaySFX("turtleDefeated");
+                _audioSource.PlayOneShot(_gameManager.turtleDefeated);
+                //  _gameManager.PlaySFX("turtleDefeated");
             }
         }
         if (!isDefeated)
@@ -227,19 +236,23 @@ public class Enemy : MonoBehaviour
 
         if (this.id == "Boss")
         {
-            _gameManager.PlaySFX("bossHitted");
+            _audioSource.PlayOneShot(_gameManager.bossHitted);
+            //   _gameManager.PlaySFX("bossHitted");
         }
         if (this.id == "Cupcake")
         {
-            _gameManager.PlaySFX("cakeHitted");
+            _audioSource.PlayOneShot(_gameManager.cakeHitted);
+            //  _gameManager.PlaySFX("cakeHitted");
         }
         if (this.id == "Fish")
         {
-            _gameManager.PlaySFX("fishDefeated");
+            _audioSource.PlayOneShot(_gameManager.fishDefeated);
+            //   _gameManager.PlaySFX("fishDefeated");
         }
         if (this.id == "Turtle")
         {
-            _gameManager.PlaySFX("turtleHitted");
+            _audioSource.PlayOneShot(_gameManager.turtleHitted);
+            //   _gameManager.PlaySFX("turtleHitted");
         }
     }
     public void Restore()
