@@ -6,14 +6,14 @@ public class SelectMode : MonoBehaviour
     private Animator _animator;
     private Dialog _dialog;
     public string sceneToLoad;
-    public GameObject introPanel;
     private bool moved;
     public float cooldownStick, actualStickTime;
+    private GameManager _gameManager;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _dialog = FindObjectOfType<Dialog>();
-
+        _gameManager = FindObjectOfType<GameManager>();
     }
     private void Start()
     {
@@ -70,7 +70,7 @@ public class SelectMode : MonoBehaviour
             {
                 sceneToLoad = "DungeonVs";
             }
-            introPanel.SetActive(true);
+            _gameManager.LoadScene(sceneToLoad);
         }
     }
 }

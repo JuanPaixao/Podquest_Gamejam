@@ -49,7 +49,7 @@ public class Dialog : MonoBehaviour
             string thisScene = SceneManager.GetActiveScene().name;
             _gameManager.LoadScene(thisScene);
         }
-        if (this.sceneName == "Menu")
+        if (this.sceneName == "Introduction")
         {
             yield return new WaitForSeconds(32.5f);
             _gameManager.LoadScene(sceneToLoad);

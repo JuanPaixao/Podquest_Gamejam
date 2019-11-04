@@ -38,7 +38,7 @@ public class PlayerTopDown : MonoBehaviour
         {
             if (!isDead)
             {
-                if (playerNumber == 1 || (gameManager.gameMode == "Single" && !gameManager.isVs))
+                if (playerNumber == 1)
                 {
                     _movHor = Input.GetAxisRaw("HorizontalKeyboard");
                     _movVer = Input.GetAxisRaw("VerticalKeyboard");
@@ -54,6 +54,8 @@ public class PlayerTopDown : MonoBehaviour
                     _movHorRot = Input.GetAxis("RightRotHorJoystick");
                     _movVerRot = Input.GetAxis("RightRoVertJoystick");
                 }
+
+
 
                 Vector2 movement = new Vector2(_movHor, _movVer);
                 transform.Translate(movement * movSpeed * Time.deltaTime);
@@ -88,22 +90,22 @@ public class PlayerTopDown : MonoBehaviour
                 //
 
 
-                if (_movHorRot > 0.9)
+                if (_movHorRot > 0.3)
                 {
                     movingDirection = "right";
                     _animator.SetInteger("Direction", 0);
                 }
-                if (_movHorRot < -0.9)
+                if (_movHorRot < -0.3)
                 {
                     movingDirection = "left";
                     _animator.SetInteger("Direction", 2);
                 }
-                if (_movVerRot > 0.9)
+                if (_movVerRot > 0.3)
                 {
                     movingDirection = "up";
                     _animator.SetInteger("Direction", 1);
                 }
-                if (_movVerRot < -0.9)
+                if (_movVerRot < -0.3)
                 {
                     movingDirection = "down";
                     _animator.SetInteger("Direction", 3);
@@ -135,7 +137,7 @@ public class PlayerTopDown : MonoBehaviour
                 {
                     if (playerNumber == 1)
                     {
-                        if (Input.GetButton("Jump"))
+                        if (_movHorRot != 0 || _movVerRot != 0)
                         {
                             GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
                             shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
@@ -144,9 +146,9 @@ public class PlayerTopDown : MonoBehaviour
                             cooldownToShoot = rechargeTime;
                         }
                     }
-                    if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
+                    if (playerNumber == 2)
                     {
-                        if (Input.GetAxisRaw("JoystickShoot_L") != 0)
+                        if (_movHorRot != 0 || _movVerRot != 0)
                         {
                             GameObject shoot = Instantiate(projectile, this.transform.position, Quaternion.identity);
                             shoot.GetComponent<Projectile>().CreateProjectile(this.movingDirection, this.shootSpeed);
@@ -198,50 +200,30 @@ public class PlayerTopDown : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Enemy"))
         {
-            Enemy enemyTemp = other.GetComponent<Enemy>();
-            if (!enemyTemp.isDefeated)
+            Enemy tempEnemy = other.GetComponent<Enemy>();
+            if (!tempEnemy.isDefeated)
             {
                 TakeDamage();
             }
-        }
-    }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Enemy tempEnemy = other.GetComponent<Enemy>();
-            Debug.Log(tempEnemy.name);
-            if (tempEnemy.isDefeated)
+            else
             {
                 if (playerNumber == 1)
                 {
-                    if (Input.GetKey(KeyCode.LeftControl))
-                    {
-                        gameManager.AddCalories(tempEnemy.calories);
-                        _animator.SetTrigger("Catch");
-                        Destroy(other.gameObject);
-                        gameManager.UpdateEnemyQuantity();
-                        gameManager.PlaySFX("playerGrab");
-                    }
+                    gameManager.AddCalories(tempEnemy.calories);
+                    _animator.SetTrigger("Catch");
+                    Destroy(other.gameObject);
+                    gameManager.UpdateEnemyQuantity();
+                    gameManager.PlaySFX("playerGrab");
                 }
 
-                if (playerNumber == 2 || (gameManager.gameMode == "Single" && !gameManager.isVs))
+                if (playerNumber == 2)
                 {
-                    if (Input.GetButton("Xbox_A"))
-                    {
-                        gameManager.AddCalories(tempEnemy.calories);
-                        _animator.SetTrigger("Catch");
-                        Destroy(other.gameObject);
-                        gameManager.UpdateEnemyQuantity();
-                        gameManager.PlaySFX("playerGrab");
-                    }
+                    gameManager.AddCalories(tempEnemy.calories);
+                    _animator.SetTrigger("Catch");
+                    Destroy(other.gameObject);
+                    gameManager.UpdateEnemyQuantity();
+                    gameManager.PlaySFX("playerGrab");
                 }
-                //  else if (Input.GetKeyDown(KeyCode.LeftControl))
-                //  {
-                //    Recover();
-                //      Destroy(other.gameObject);
-                //      _gameManager.UpdateEnemyQuantity();
-                //  }
             }
         }
     }
