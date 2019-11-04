@@ -9166,6 +9166,11 @@ PrefabInstance:
       propertyPath: rechargeTime
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 7262485786247065494, guid: 7658fac9442bc6d48b852b33dc8dd387,
+        type: 3}
+      propertyPath: cooldownGetEnemy
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7262485787044162238, guid: 7658fac9442bc6d48b852b33dc8dd387,
         type: 3}
       propertyPath: m_Color.r

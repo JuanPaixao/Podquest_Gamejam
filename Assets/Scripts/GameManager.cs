@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public UIManager uIManager;
     private SceneManager _sceneManager;
     public RandomizeTile randomizeTile;
-    public GameObject finishGamePanel, pressAnythingToPlay, introPanel, arrowSelectionMenu, skipObject;
+    public GameObject finishGamePanel, pressAnythingToPlay, arrowSelectionMenu, skipObject;
     public GameObject[] arrowUI;
     public bool finished, canPlay, canGoToScene;
     public string sceneName;
@@ -50,13 +50,12 @@ public class GameManager : MonoBehaviour
                 pressAnythingToPlay.SetActive(false);
                 Invoke("CanPlay", 4);
             }
-            if (canGoToScene)
+        }
+        if (this.sceneName == "Introduction")
+        {
+            if (Input.GetKey(KeyCode.Escape) || (Input.GetButton("Escape")))
             {
-                if (Input.GetKey(KeyCode.Escape) || (Input.GetButton("Escape")))
-                {
-                    string sceneToLoad = FindObjectOfType<Dialog>().sceneToLoad;
-                    LoadScene(sceneToLoad);
-                }
+                LoadScene("Menu");
             }
         }
         else
@@ -71,7 +70,6 @@ public class GameManager : MonoBehaviour
     {
         canPlay = true;
         pressAnythingToPlay.SetActive(true);
-
     }
     public void CanPlay()
     {
