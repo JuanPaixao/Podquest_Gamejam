@@ -124,7 +124,6 @@ MonoBehaviour:
   tempTransform: {fileID: 9092320850992813495}
   particle: {fileID: 8307563907343687308, guid: 93b4f11813db83042bc2c08f52de5c1b,
     type: 3}
-  audioClip: {fileID: 8300000, guid: 1db40a2cebd8c094da527a6ca66fb837, type: 3}
 --- !u!50 &3571920295859005150
 Rigidbody2D:
   serializedVersion: 4
@@ -327,7 +326,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300000, guid: dad3de8c2d860974f9b997f1004918cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

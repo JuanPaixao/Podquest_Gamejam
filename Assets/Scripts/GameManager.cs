@@ -111,6 +111,11 @@ public class GameManager : MonoBehaviour
     }
     public void CreateEnemies()
     {
+        GameObject[] splat = GameObject.FindGameObjectsWithTag("Splat");
+        foreach (GameObject s in splat)
+        {
+            Destroy(s);
+        }
         randomizeTile.RandomizeGround();
         enemyQuantity = 0;
         roomNumber++;
