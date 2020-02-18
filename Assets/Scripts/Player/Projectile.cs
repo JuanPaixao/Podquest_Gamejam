@@ -7,9 +7,11 @@ public class Projectile : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Transform tempTransform;
     public GameObject particle;
-    
+    public CameraShake cameraShake;
+
     private void Start()
     {
+        cameraShake = FindObjectOfType<CameraShake>();
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Invoke("Destroy", 1.15f);
         this.transform.Rotate(0, 0, 0);
@@ -60,9 +62,18 @@ public class Projectile : MonoBehaviour
         Instantiate(particle, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
+    private void CamShake()
+    {
+        cameraShake.Shake(0.2f, 0.15f);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Wall")||other.gameObject.CompareTag("EnemyShoot"))
+        if (other.gameObject.CompareTag("EnemyShoot"))
+        {
+            Destroy();
+            CamShake();
+        }
+        else if (other.gameObject.CompareTag("Wall"))
         {
             Destroy();
         }
@@ -71,6 +82,7 @@ public class Projectile : MonoBehaviour
             if (!other.gameObject.GetComponent<Enemy>().isDefeated)
             {
                 Destroy();
+                CamShake();
             }
         }
     }
