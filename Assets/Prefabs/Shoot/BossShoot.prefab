@@ -150,6 +150,9 @@ MonoBehaviour:
   projectileSpeed: 1000
   shootDirection: {x: 0, y: 0, z: 0}
   playerPosition: {fileID: 0}
+  particle: {fileID: 8307563907343687308, guid: 9c5d5b4cc8ebe784692c1e3b72858857,
+    type: 3}
+  bossProjectileHP: 2
 --- !u!70 &3909580035572872795
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

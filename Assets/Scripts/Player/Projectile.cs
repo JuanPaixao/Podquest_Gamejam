@@ -6,11 +6,12 @@ public class Projectile : MonoBehaviour
     public float projectileSpeed;
     public SpriteRenderer spriteRenderer;
     public Transform tempTransform;
-
+    public GameObject particle;
+    
     private void Start()
     {
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        Invoke("Destroy", 1.55f);
+        Invoke("Destroy", 1.15f);
         this.transform.Rotate(0, 0, 0);
     }
     public void CreateProjectile(string direction, float projectileSpeed)
@@ -39,7 +40,6 @@ public class Projectile : MonoBehaviour
     {
         switch (direction)
         {
-
             case "right":
                 transform.Translate(new Vector2(projectileSpeed * Time.deltaTime, 0));
                 break;
@@ -57,14 +57,22 @@ public class Projectile : MonoBehaviour
     }
     private void Destroy()
     {
+        Instantiate(particle, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall")||other.gameObject.CompareTag("EnemyShoot"))
         {
-            Destroy(this.gameObject);
+            Destroy();
         }
-        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            if (!other.gameObject.GetComponent<Enemy>().isDefeated)
+            {
+                Destroy();
+            }
+        }
     }
 }
+

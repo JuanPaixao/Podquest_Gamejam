@@ -12,6 +12,7 @@ TagManager:
   - Portal
   - EnemyShoot
   - Wall
+  - Splat
   layers:
   - Default
   - TransparentFX

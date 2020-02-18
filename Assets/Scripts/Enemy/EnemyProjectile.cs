@@ -8,6 +8,8 @@ public class EnemyProjectile : MonoBehaviour
     private Rigidbody2D _rb;
     public Transform playerPosition;
     private Vector3 _directionFollow;
+    public GameObject particle;
+    public int bossProjectileHP;
 
     private void Start()
     {
@@ -28,17 +30,21 @@ public class EnemyProjectile : MonoBehaviour
     }
     private void Destroy()
     {
+        Instantiate(particle, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("PlayerProjectile"))
         {
-            Destroy(this.gameObject);
-        }
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Destroy(this.gameObject);
+            if (this.bossProjectileHP <= 0)
+            {
+                Destroy();
+            }
+            else
+            {
+                bossProjectileHP--;
+            }
         }
     }
 }
