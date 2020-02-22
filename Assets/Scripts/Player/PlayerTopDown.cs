@@ -18,10 +18,12 @@ public class PlayerTopDown : MonoBehaviour
     public int playerNumber;
     public float xPositivePosition, xNegativePosition, yPositivePosition, yNegativePosition;
     private MultiplayerManager _multiplayerManager;
+    public CameraShake cameraShake;
     private void Awake()
     {
         _uiManager = FindObjectOfType<UIManager>();
         _multiplayerManager = FindObjectOfType<MultiplayerManager>();
+        cameraShake = FindObjectOfType<CameraShake>();
     }
     private void Start()
     {
@@ -58,7 +60,7 @@ public class PlayerTopDown : MonoBehaviour
 
 
                 Vector2 movement = new Vector2(_movHor, _movVer);
-                transform.Translate(movement * movSpeed * Time.deltaTime);
+                transform.Translate(movement.normalized * movSpeed * Time.deltaTime);
                 _animator.SetFloat("Speed", Mathf.Abs(movement.magnitude));
                 cooldownToShoot -= Time.deltaTime;
 
@@ -231,6 +233,7 @@ public class PlayerTopDown : MonoBehaviour
     private void TakeDamage()
     {
         HP--;
+        cameraShake.Shake(0.2f, 0.15f);
         if (playerNumber == 1)
         {
             _uiManager.SetHP(HP, 1);

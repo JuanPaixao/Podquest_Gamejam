@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2047372768078936235}
   - component: {fileID: 2422911074778848820}
   m_Layer: 0
-  m_Name: BreadShoot 1
+  m_Name: BreadShoot
   m_TagString: EnemyShoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,6 +201,8 @@ MonoBehaviour:
   projectileSpeed: 0
   shootDirection: {x: 0, y: 0, z: 0}
   playerPosition: {fileID: 0}
+  particle: {fileID: 8307563907343687308, guid: df7816cdbfe532d479c0cecc5704743e,
+    type: 3}
 --- !u!70 &2047372768078936235
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

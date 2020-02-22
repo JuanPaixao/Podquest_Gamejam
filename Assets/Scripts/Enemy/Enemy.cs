@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform _player, _player2, _target;
     public float lookDistance, speed, offset;
     private Rigidbody2D _rb;
-    public GameObject enemyProjectile;
+    public GameObject enemyProjectile, shadow, splat;
     public float shootRechargeTime, shootCooldown, projectileSpeed;
     private float _angle;
     public int calories;
@@ -177,6 +177,14 @@ public class Enemy : MonoBehaviour
     public void EnemyTakeDamage()
     {
         HP--;
+        if (this.id == "Boss")
+        {
+            Instantiate(splat, new Vector2(transform.position.x, transform.position.y - 2f), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(splat, this.transform.position, Quaternion.identity);
+        }
         if (HP <= 0)
         {
             // _gameManager.UpdateEnemyQuantity();
@@ -192,6 +200,7 @@ public class Enemy : MonoBehaviour
             {
                 _audioSource.PlayOneShot(_gameManager.cakeDefeated);
                 // _gameManager.PlaySFX("cakeDefeated");
+
             }
             if (this.id == "Turtle")
             {
@@ -210,8 +219,6 @@ public class Enemy : MonoBehaviour
         {
             if (other.CompareTag("PlayerProjectile"))
             {
-
-                Destroy(other.gameObject);
                 EnemyTakeDamage();
             }
         }
@@ -232,6 +239,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage()
     {
         _spriteRenderer.enabled = false;
+        shadow.SetActive(false);
         Invoke("Restore", 0.15f);
 
         if (this.id == "Boss")
@@ -257,6 +265,7 @@ public class Enemy : MonoBehaviour
     }
     public void Restore()
     {
+        shadow.SetActive(true);
         _spriteRenderer.enabled = true;
     }
 }

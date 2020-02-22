@@ -8,9 +8,13 @@ public class EnemyProjectile : MonoBehaviour
     private Rigidbody2D _rb;
     public Transform playerPosition;
     private Vector3 _directionFollow;
+    public GameObject particle;
+    public int bossProjectileHP;
+    public CameraShake cameraShake;
 
     private void Start()
     {
+        cameraShake = FindObjectOfType<CameraShake>();
         _rb = GetComponent<Rigidbody2D>();
         Invoke("Destroy", 10);
         _directionFollow = playerPosition.position - this.transform.position;
@@ -28,17 +32,31 @@ public class EnemyProjectile : MonoBehaviour
     }
     private void Destroy()
     {
+        Instantiate(particle, this.transform.position, Quaternion.identity);
         Destroy(this.gameObject);
+    }
+    private void CamShake()
+    {
+        cameraShake.Shake(0.2f, 0.15f);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("PlayerProjectile"))
         {
-            Destroy(this.gameObject);
+            if (this.bossProjectileHP <= 0)
+            {
+                Destroy();
+                CamShake();
+            }
+            else
+            {
+                bossProjectileHP--;
+                CamShake();
+            }
         }
-        if (other.gameObject.CompareTag("Player"))
+        else if (other.gameObject.CompareTag("Wall"))
         {
-            Destroy(this.gameObject);
+            Destroy();
         }
     }
 }

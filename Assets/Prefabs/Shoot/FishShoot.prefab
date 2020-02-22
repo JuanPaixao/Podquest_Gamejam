@@ -201,6 +201,8 @@ MonoBehaviour:
   projectileSpeed: 0
   shootDirection: {x: 0, y: 0, z: 0}
   playerPosition: {fileID: 0}
+  particle: {fileID: 8307563907343687308, guid: da46d7df4a016da4b8945a54c22cc286,
+    type: 3}
 --- !u!70 &4106871282111991782
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
